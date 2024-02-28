@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<TEI>
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Text Explorer Project</title>
+        <author>George Eliot</author>
+      </titleStmt>
+      <publicationStmt>
+        <publisher>George Eliot Archive, edited by Beverley Park Rilett, https://GeorgeEliotArchive.org</publisher>
+        <address>
+          <addrLine>Auburn University, 231 Mell Street, Auburn, AL, 36832, USA</addrLine>
+        </address>
+        <availability>This is an open access work licensed under a Creative Commons Attribution Non-Commercial ShareAlike 4.0 International (CC BY-NC-SA 4.0) license.</availability>
+      </publicationStmt>
+      <sourceDesc>
+        <bibl>
+          <source></source>
+        </bibl>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+<text>
+<front>
+
+</front>
+<body>
+<div type="textpart" subtype="title" n="title"></div>
+<p><em>Text Explorer</em> is a concordance tool for searching and analyzing George Eliot's fiction. This is our second edition of this tool, introduced in May of 2023 and updated in November, now with search results showing three words on either side of the search term and the full text context highlighted below.</p>
+<p>Our plan is to expand the texts available for searching, including George Eliot's <a href="https://georgeeliotarchive.org/items/browse?collection=5&amp;sort_field=Dublin+Core%2CTitle">poetry</a> and <a href="https://georgeeliotarchive.org/items/browse?collection=4&amp;sort_field=Dublin+Core%2CTitle">nonfiction</a> works in 2024. We also will be adding more search and visualization options.</p>
+<p>Specifically, we will be adding visualization tools similar to <a href="https://voyant-tools.org/docs/#!/guide/about">Voyant Tools</a>, a project that inspires us. It is possible to use <em>Voyant Tools</em> on some of Eliot's novels now; simply find the Cabinet Edition of each novel under <a href="https://georgeeliotarchive.org/items/browse?collection=1&amp;sort_field=Dublin+Core%2CTitle">"Fiction by George Eliot"</a> and scroll down for the automatically loading Voyant Tools visualizations. For example, see <a href="https://georgeeliotarchive.org/items/show/15">Felix Holt, the Radical</a>. It's a start!</p>
+<p>We are also using natural language processing AI tools, especially GPT-4, to train our Text Explorer on our own database of George Eliot texts that will allow for semantic searching. Exciting data mining possibilities are coming to fruition for a new generation of George Eliot scholars. For example, see the <a href="https://georgeeliotarchive.org/ai_analysis">AI Text Analysis</a> project, in development since the summer of 2023.</p>
+<p>We invite you to try these tools and send your comments and suggestions to the editors at: BDR0032@Auburn.edu</p>
+</body>
+</text>
+</TEI>
