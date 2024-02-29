@@ -1,0 +1,88 @@
+front {
+  display: none;
+  color: cadetblue;
+}
+
+teiheader {
+  color: cadetblue;
+}
+
+teiheader title {
+  font-size: 2em;
+  font-weight: 700;
+  font-family: "Tahoma", sans-serif;
+  color: crimson;
+  display: block;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+author::before {
+  content: "By ";
+  font-weight: 700;
+  font-family: "Tahoma", sans-serif;
+}
+author {
+  font-weight: 700;
+  font-family: "Tahoma", sans-serif;
+  margin-right: 1em;
+  color: crimson;
+}
+publisher {
+  font-weight: 700;
+}
+publisher::after {
+  content: "\a\a Text encoded by Beverley Park Rilett, Yue Cui, and Libo Sun (2023)";
+  white-space: pre-wrap; /* Allows text to wrap and preserves whitespace */
+  word-wrap: break-word; /* Breaks long words to prevent overflow */
+  overflow-wrap: break-word; /* Ensures that words break to prevent overflow */
+  max-width: 100vw; /* Ensures the max width is not more than the viewport width */
+  box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+}
+
+availability::before {
+  content: "\a";
+  white-space: pre;
+}
+availability::after {
+  content: ""; /* Required property for ::after to work, but it's an empty string */
+  display: block; /* Ensures the pseudo-element is treated as a block, thus taking up the full width */
+  margin: 8px 0; /* Adds some space above and below the line */
+  border-bottom: 1px solid #000; /* Creates the line as a border-bottom */
+}
+
+div[type="content"] {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  /* padding: 1em; */
+  /* border: 1px solid #ddd; */
+  background-color: #f9f9f9;
+  overflow-y: scroll;
+}
+div[type="chapter"] {
+  text-align: center;
+  font-size: large;
+  font-weight: bold;
+}
+
+p {
+  text-align: left;
+  font-size: normal;
+  font-weight: normal;
+}
+
+publicationstmt address {
+  display: none;
+}
+
+publicationstmt distributor {
+  display: none;
+}
+
+sourcedesc bibl::before {
+  content: "";
+  white-space: pre;
+}
+sourcedesc bibl {
+  color: black;
+}
