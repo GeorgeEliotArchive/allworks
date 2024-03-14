@@ -27,9 +27,12 @@ const OptionToFilename = {
 
 const OptionToVoyant = {
   "Search a text to explore": "",
-  "Mr. Gilfil's Love Story (1857)": "",
-  "Janet's Repentance (1857)": "",
-  "The Sad Fortunes of the Rev. Amos Barton (1857)": "",
+  "Mr. Gilfil's Love Story (1857)":
+    "https://voyant-tools.org/tool/Cirrus/?corpus=a32279787de8e93603097cc4e26271f6&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+  "Janet's Repentance (1857)":
+    "https://voyant-tools.org/tool/Cirrus/?corpus=477db75674e3ee663b6cea67dc5c5968&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+  "The Sad Fortunes of the Rev. Amos Barton (1857)":
+    " https://voyant-tools.org/tool/Cirrus/?corpus=8118b293dc884803731f96c4666e7bdb&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "Adam Bede (1859)":
     "https://voyant-tools.org/tool/Cirrus/?corpus=3cc2427efa1f1eb749aa55b5cfd099d2&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "The Lifted Veil (1859)":
@@ -424,7 +427,7 @@ function hide_search_container() {
 function initVoyantTool() {
   selected_voyant = "";
   display_voyant = false;
-  changeVoyantToolButton("Voyant Tool");
+  changeVoyantToolButton("Voyant Tools");
 }
 // Function to insert the Voyant tool
 function insertVoyantTool(url) {
