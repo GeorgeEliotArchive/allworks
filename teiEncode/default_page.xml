@@ -26,7 +26,7 @@
 </front>
 <body>
 <div type="textpart" subtype="title" n="title"></div>
-<p></p>
+<!-- <p></p> -->
 </body>
 </text>
 </TEI>
