@@ -8,6 +8,7 @@ teiheader {
 }
 
 teiheader title {
+  font-size: 3em !important;
   font-size: 2em;
   font-weight: 700;
   font-family: "Tahoma", sans-serif;
@@ -59,6 +60,26 @@ div[type="content"] {
   background-color: #f9f9f9;
   overflow-y: scroll;
 }
+teisubtitle {
+  font-size: 2em;
+  font-weight: 300;
+  font-family: "Tahoma", sans-serif;
+  color: crimson;
+  display: block;
+  text-align: center;
+  margin-bottom: 1em;
+}
+teisubtitle::before {
+  margin-top: 1em;
+}
+
+teisubtitle::after {
+  content: ""; /* Required property for ::after to work, but it's an empty string */
+  display: block; /* Ensures the pseudo-element is treated as a block, thus taking up the full width */
+  margin: 2px 0; /* Adds some space above and below the line */
+  border-bottom: 1px solid crimson; /* Creates the line as a border-bottom */
+}
+
 div[type="chapter"] {
   text-align: center;
   font-size: large;
