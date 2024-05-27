@@ -107,3 +107,28 @@ sourcedesc bibl::before {
 sourcedesc bibl {
   color: black;
 }
+
+div[type="sonnet"]::before {
+  content: "";
+  white-space: pre;
+  margin-top: 1em;
+}
+
+div[type="sonnet"]::after {
+  margin-bottom: 1em;
+}
+
+div[type="sonnet"] lg {
+  content: "";
+  white-space: pre;
+}
+
+div[type="sonnet"] book {
+  font-size: 1.1em;
+  font-weight: 400;
+  font-family: "Tahoma", sans-serif;
+  color: crimson;
+  display: block;
+  margin-bottom: 1em;
+  margin-left: 4em;
+}
