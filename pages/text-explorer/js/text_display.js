@@ -165,7 +165,7 @@ async function displayTEIContent(filename) {
 }
 
 function searchAndHighlight(phrase) {
-  if (phrase === "") {
+  if (phrase === "" || isOnlyWhitespace(phrase) === true) {
     hide_search_container();
     return;
   }
@@ -483,4 +483,8 @@ function displayVoyantTool() {
 function changeVoyantToolButton(value) {
   const voyantToolButton = document.getElementById("button-voyant");
   voyantToolButton.textContent = value;
+}
+
+function isOnlyWhitespace(str) {
+  return /^\s*$/.test(str);
 }
