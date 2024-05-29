@@ -132,3 +132,25 @@ div[type="sonnet"] book {
   margin-bottom: 1em;
   margin-left: 4em;
 }
+
+div[type="content"] lg {
+  content: "";
+  white-space: pre;
+}
+
+div[type="content"] teisubtitle {
+  font-size: 2em;
+  font-weight: 300;
+  font-family: "Tahoma", sans-serif;
+  color: crimson;
+  display: block;
+  text-align: left !important;
+  margin-bottom: 1em;
+  margin-left: 4em;
+  margin-right: 4em;
+}
+
+l {
+  content: "";
+  white-space: pre;
+}

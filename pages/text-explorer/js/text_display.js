@@ -24,6 +24,7 @@ const OptionToFilename = {
   "Impressions of Theophrastus Such (1879)": "Impressions of Theophrastus Such",
   "All Nonfiction": "nonfiction_v2",
   "The Spanish Gypsy": "The_Spanish_Gypsy",
+  "All Poetry Except The Spanish Gypsy": "poetry_allinone",
 };
 
 const OptionToVoyant = {
@@ -60,6 +61,8 @@ const OptionToVoyant = {
     "https://voyant-tools.org/?corpus=a70fb8ab1ef7192f57c653e19e75744f&view=Cirrus&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "The Spanish Gypsy":
     "https://voyant-tools.org/?corpus=0c45473a2790cc5bd6b28df29c43eb0e&view=Cirrus&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+  "All Poetry Except The Spanish Gypsy":
+    "https://voyant-tools.org/?corpus=64b9464c2253e8beee0fb30fc2ab5699&view=Cirrus&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
 };
 
 function populateDropdown() {
