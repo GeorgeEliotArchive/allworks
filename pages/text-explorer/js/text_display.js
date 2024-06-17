@@ -5,6 +5,8 @@ let id_pop_row = "";
 let selected_current = "";
 let selected_voyant = "";
 let display_voyant = false;
+let highlight_curr = "none";
+let toggle_button_display = false;
 
 const FolderBase = "../../teiEncode/";
 const OptionToFilename = {
@@ -89,7 +91,7 @@ function populateDropdown() {
   }
   select.addEventListener("change", function () {
     let selectedOption = this.value;
-    console.log("Selected: " + selectedOption);
+    // console.log("Selected: " + selectedOption);
     selected_current = this.options[this.selectedIndex].text;
     let doc_clear = document.getElementById("xml-display");
     doc_clear.innerHTML = "";
@@ -105,38 +107,11 @@ function populateDropdown() {
   let event = new Event("change");
   select.dispatchEvent(event);
 
-  // Or Method 2: Call the function directly (if you prefer)
+  // Or Method 2: Call the function directly
   // displayTEIContent(firstOptionValue);
 }
 
-// Call the function to populate the dropdown
-
-// function displayTEIContent(filename) {
-//   fetch("get-xml/" + filename)
-//     .then((response) => response.text())
-//     .then((data) => {
-//       hide_search_container();
-//       const parser = new DOMParser();
-//       const xmlDoc = parser.parseFromString(data, "text/xml");
-//       // Serialize XML DOM to string
-//       // let frontNode = xmlDoc.getElementsByTagName("front")[0];
-//       // console.log(frontNode);
-//       let serializer = new XMLSerializer();
-//       let serializedXml = serializer.serializeToString(xmlDoc);
-//       // Escape the XML string
-
-//       document.getElementById("xml-display").innerHTML = escapeXml(serializedXml);
-//     });
-// }
-
 async function displayTEIContent(filename) {
-  // fetch("get-xml/" + filename)
-  //   .then((response) => response.text())
-  //   .then((data) => {
-  //     hide_search_container();
-  //     const parser = new DOMParser();
-  //     const xmlDoc = parser.parseFromString(data, "text/xml");
-
   let relativePath = FolderBase + filename + ".xml";
 
   try {
@@ -157,6 +132,7 @@ async function displayTEIContent(filename) {
     // Serialize XML DOM to string
     // let frontNode = xmlDoc.getElementsByTagName("front")[0];
     // console.log(frontNode);
+
     let serializer = new XMLSerializer();
     let serializedXml = serializer.serializeToString(xmlDoc);
     // Escape the XML string
@@ -165,6 +141,33 @@ async function displayTEIContent(filename) {
   } catch (error) {
     console.error("Error fetching or parsing XML:", error);
   }
+
+  // Add CSS for highlight class
+  const style = document.createElement("style");
+  style.innerHTML = `
+    .highlight_tag {
+        background-color: rgba(144, 238, 144, 0.4); /* Light green background with 50% opacity */
+    #button-container {
+        z-index: 1000; /* Ensure the buttons are always on top */
+    }
+    .btn-secondary {
+        margin-bottom: 10px; /* Adjust margin to ensure the toggle button does not overlap with the buttons */
+    }
+    .btn-secondary span {
+    display: inline-block;
+    width: 100%;
+    }
+    #toggle-button {
+      width: 30px;
+    }
+  `;
+  document.head.appendChild(style);
+  // highlightTagText("name");
+  document.getElementById("xml-display").appendChild(createButtons());
+
+  // reset the highlight button
+  highlight_curr = "none";
+  toggle_button_display = false;
 }
 
 function searchAndHighlight(phrase) {
@@ -333,6 +336,7 @@ function pop_up_interactive(doc_container, displayed_results, doc_scroll_top) {
   });
 
   divButtons.appendChild(buttonScrollTop);
+
   container.appendChild(divButtons);
   doc_container.insertBefore(container, doc_container.firstChild);
 }
@@ -490,4 +494,164 @@ function changeVoyantToolButton(value) {
 
 function isOnlyWhitespace(str) {
   return /^\s*$/.test(str);
+}
+
+function switchHighlight() {
+  displayTEIContent(selectedOption);
+}
+
+// function for highlighting the text by tag like <name>, <place>, <date>, etc.
+function highlightTagText(tag) {
+  // console.log("Highlighting tag:", tag, "current:", highlight_curr);
+  if (highlight_curr === tag) {
+    return;
+  }
+  if (tag === "none") {
+    removeHighlightTagText();
+    deactiveButton(highlight_curr);
+    highlight_curr = "none";
+    activeButton(highlight_curr);
+    return;
+  }
+
+  if (highlight_curr !== "none") {
+    removeHighlightTagText();
+  }
+
+  deactiveButton(highlight_curr);
+
+  // removeHighlightTagText();
+  highlight_curr = tag;
+
+  const displayArea = document.getElementsByTagName("text")[0];
+  if (!displayArea) {
+    console.error("Display area not found");
+    return;
+  }
+
+  let content = displayArea.innerHTML;
+  const tagRegex = new RegExp(`<${tag}>(.*?)</${tag}>`, "g");
+  const highlightedContent = content.replace(tagRegex, `<span class="highlight_tag" data-tag="${tag}">$1</span>`);
+
+  displayArea.innerHTML = highlightedContent;
+
+  activeButton(tag);
+}
+
+// Function to remove highlight from specified tag
+function removeHighlightTagText() {
+  if (highlight_curr === "none") {
+    return;
+  }
+  // deactiveButton(highlight_curr);
+  const displayArea = document.getElementsByTagName("text")[0];
+  if (!displayArea) {
+    console.error("Display area not found");
+    return;
+  }
+
+  let content = displayArea.innerHTML;
+  const highlightTagRegex = new RegExp(`<span class="highlight_tag" data-tag="${highlight_curr}">(.*?)</span>`, "g");
+  const unhighlightedContent = content.replace(highlightTagRegex, `<${highlight_curr}>$1</${highlight_curr}>`);
+
+  displayArea.innerHTML = unhighlightedContent;
+  // highlight_curr = "none";
+  // activeButton(highlight_curr);
+}
+
+// Function to create and add buttons dynamically using Bootstrap 5.3
+function createButtons() {
+  const buttonContainer = document.createElement("div");
+  buttonContainer.id = "button-container";
+  buttonContainer.className = "position-fixed top-0 end-0 p-3";
+
+  const toggleButton = initToggleButton();
+
+  const buttonGroupContainer = document.createElement("div");
+  buttonGroupContainer.className = "btn-group-vertical collapse top-2 end-0";
+  buttonGroupContainer.setAttribute("role", "group");
+  buttonGroupContainer.id = "tag-buttons";
+
+  const buttons = [
+    { label: "Hide", id: "btn_hide", action: () => displayToggleButton() },
+    { label: "No-highlight", id: "btn_none", action: () => highlightTagText("none") },
+    { label: "Name", id: "btn_name", action: () => highlightTagText("name") },
+    { label: "Place", id: "btn_place", action: () => highlightTagText("place") },
+    { label: "Quotation", id: "btn_quotation", action: () => highlightTagText("quotation") },
+  ];
+
+  buttons.forEach((button) => {
+    const btn = document.createElement("button");
+
+    if (button.label === "Hide") {
+      btn.className = "btn btn-outline-secondary";
+    } else if (button.label === "No-highlight") {
+      btn.className = "btn btn-outline-primary active";
+    } else {
+      btn.className = "btn btn-outline-primary";
+    }
+    btn.innerText = button.label;
+    btn.id = button.id;
+    btn.onclick = button.action;
+    buttonGroupContainer.appendChild(btn);
+  });
+
+  buttonContainer.appendChild(toggleButton);
+  buttonContainer.appendChild(buttonGroupContainer);
+  return buttonContainer;
+}
+
+function activeButton(tag) {
+  const btn = document.getElementById(`btn_${tag}`);
+  if (btn) {
+    btn.classList.add("active");
+  }
+}
+
+function deactiveButton(tag) {
+  const btn = document.getElementById(`btn_${tag}`);
+  if (btn) {
+    btn.classList.remove("active");
+  }
+}
+
+function initToggleButton() {
+  toggle_button_display = false;
+  const toggleButton = document.createElement("button");
+  toggleButton.className = "btn btn-outline-secondary mb-2";
+  // toggleButton.setAttribute("data-bs-toggle", "collapse");
+  // toggleButton.setAttribute("data-bs-target", "#tag-buttons");
+  // toggleButton.setAttribute("aria-expanded", "false");
+  // toggleButton.setAttribute("aria-controls", "tag-buttons");
+  toggleButton.innerHTML = "<span>&#9662;</span>"; // Down arrow icon
+  toggleButton.style.maxWidth = "40px"; // Set max width to 30px
+  toggleButton.id = "toggle-button";
+  toggleButton.onclick = toggleButtonStat;
+  return toggleButton;
+}
+
+function toggleButtonStat() {
+  const buttonGroup = document.getElementById("tag-buttons");
+  const buttonToggle = document.getElementById("toggle-button");
+
+  if (toggle_button_display === false) {
+    // buttonToggle.innerHTML = "<span>&#9652;</span>"; // Up arrow icon
+    buttonToggle.classList.add("d-none");
+    buttonGroup.classList.add("display");
+    buttonGroup.classList.remove("collapse");
+    toggle_button_display = true;
+  } else {
+    buttonToggle.innerHTML = "<span>&#9662;</span>"; // Down arrow icon
+    buttonToggle.classList.remove("d-none");
+    buttonGroup.classList.remove("display");
+    buttonGroup.classList.add("collapse");
+    toggle_button_display = false;
+  }
+}
+
+function displayToggleButton() {
+  // const buttonToggle = document.getElementById("toggle-button");
+  // buttonToggle.classList.remove("d-none");
+  toggle_button_display = true;
+  toggleButtonStat();
 }

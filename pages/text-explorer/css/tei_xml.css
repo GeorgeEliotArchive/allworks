@@ -113,3 +113,7 @@
 #minimizeButton:hover {
   background-color: #ddd;
 }
+
+.dynamic_highlight {
+  background-color: yellow; /* or any other color you prefer */
+}
