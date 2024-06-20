@@ -502,7 +502,7 @@ function switchHighlight() {
 
 // function for highlighting the text by tag like <name>, <place>, <date>, etc.
 function highlightTagText(tag) {
-  // console.log("Highlighting tag:", tag, "current:", highlight_curr);
+  console.log("Highlighting tag:", tag, "current:", highlight_curr);
   if (highlight_curr === tag) {
     return;
   }

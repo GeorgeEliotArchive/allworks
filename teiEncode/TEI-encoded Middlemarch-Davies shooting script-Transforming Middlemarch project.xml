@@ -109,10 +109,10 @@
 
   <epigraph>
    <cit>
-    <q>
+    <quotation>
      <l>"Since I can do no good because a woman,</l>
      <l>Reach constantly at something that is near it."</l>
-    </q>
+    </quotation>
    </cit>
    <bibl><hi rend="italic">The Maid's Tragedy</hi>:
     BEAUMONT AND FLETCHER.</bibl>
@@ -416,16 +416,16 @@
 
    <epigraph>
     <cit>
-    <q>"'Dime; no ves aquel caballero que hácia nosotros viene sobre un caballo rucio rodado que trae
+    <quotation>"'Dime; no ves aquel caballero que hácia nosotros viene sobre un caballo rucio rodado que trae
     puesto en la cabeza un yelmo de oro?' 'Lo que veo y columbro,' respondió Sancho, 'no es sino un
     hombre sobre un asno pardo como el mió, que trae sobre la cabeza una cosa que relumbra.' 'Pues
-    ese es el yelmo de Mambrino,' dijo Don Quijote."</q> 
+    ese es el yelmo de Mambrino,' dijo Don Quijote."</quotation> 
     <bibl>CERVANTES.</bibl>
     
-   <q>"'Seest thou not yon cavalier who cometh toward us on a dapple-grey steed, and weareth a
+   <quotation>"'Seest thou not yon cavalier who cometh toward us on a dapple-grey steed, and weareth a
     golden helmet?' 'What I see,' answered Sancho, 'is nothing but a man on a grey ass like my own,
     who carries something shiny on his head.' 'Just so,' answered Don Quixote: 'and that resplendent
-    object is the helmet of Mambrino.'"</q></cit> 
+    object is the helmet of Mambrino.'"</quotation></cit> 
    </epigraph>
 
    <p>"Sir Humphry Davy?" said Mr Brooke, over the soup, in his easy smiling way, taking up Sir
@@ -710,12 +710,12 @@
   
    <epigraph>
    <cit>
-    <q><l>"Say, goddess, what ensued, when Raphael,</l>
+    <quotation><l>"Say, goddess, what ensued, when Raphael,</l>
      <l>The affable archangel . . .</l> 
      <l>Eve</l> 
      <l>The story heard attentive, and was filled</l>
      <l>With admiration, and deep muse, to hear</l> 
-     <l>Of things so high and strange."</l></q></cit>
+     <l>Of things so high and strange."</l></quotation></cit>
     <bibl><hi rend="italic">—Paradise Lost, B. vii</hi></bibl> 
     </epigraph>
 
@@ -1079,9 +1079,9 @@
 
    <epigraph>
     <cit>
-     <q><l><hi rend="italic">"1st Gent.</hi> Our deeds are fetters that we forge ourselves.</l> 
+     <quotation><l><hi rend="italic">"1st Gent.</hi> Our deeds are fetters that we forge ourselves.</l> 
       <l><hi rend="italic">2d Gent.</hi> Ay, truly: but I think it is the world</l> 
-      <l>That brings the iron."</l></q></cit></epigraph>
+      <l>That brings the iron."</l></quotation></cit></epigraph>
     <!-- no bibl given- - Harvey ed. (PEL, 1965) notes that 'Where no source is cited, it may assumed that 
      these chapter epigraphs are by George Eliot herself.' notes pg 899-->
   
@@ -1360,11 +1360,11 @@
 
     <epigraph>
     <cit>
-   <q>"Hard students are commonly troubled with gowts, catarrhs, rheums, cachexia, bradypepsia, bad
+   <quotation>"Hard students are commonly troubled with gowts, catarrhs, rheums, cachexia, bradypepsia, bad
     eyes, stone, and collick, crudities, oppilations, vertigo, winds, consumptions, and all such
     diseases as come by over-much sitting: they are most part lean, dry, ill-coloured . . and all
     through immoderate pains and extraordinary studies. If you will not believe the truth of this,
-    look upon great Tostatus and Thomas Aquainas' works; and tell me whether those men took pains."</q>
+    look upon great Tostatus and Thomas Aquainas' works; and tell me whether those men took pains."</quotation>
      <bibl>BURTON'S <hi rend="italic">Anatomy of Melancholy, P.I.s. 2.</hi></bibl>
     </cit>
     </epigraph>
@@ -1667,11 +1667,11 @@
 
    <epigraph>
     <cit>
-     <q><l>"My lady's tongue is like the meadow blades,</l>
+     <quotation><l>"My lady's tongue is like the meadow blades,</l>
       <l>That cut you stroking them with idle hand.</l> 
       <l>Nice cutting is her function: she divides</l> 
       <l>With spiritual edge the millet-seed,</l> 
-      <l>And makes intangible savings."</l></q>
+      <l>And makes intangible savings."</l></quotation>
     </cit>
    </epigraph>
 <!-- no bibl supplied, check Harvey ed -->
@@ -2074,9 +2074,9 @@
 
    <epigraph>
    <cit>
-    <q><l>"Piacer e popone</l>
+    <quotation><l>"Piacer e popone</l>
      <l>Vuol la sua stagione."</l>
-     <bibl><hi rend="italic">Italian Proverb.</hi></bibl></q>
+     <bibl><hi rend="italic">Italian Proverb.</hi></bibl></quotation>
    </cit>
    </epigraph>
 
@@ -2222,11 +2222,11 @@
 
   <epigraph>
   <cit>
-  <q>
+  <quotation>
    <l>"Oh, rescue her! I am her brother now,</l> 
    <l>And you her father. Every gentle maid</l>
    <l>Should have a guardian in each gentleman."</l>
-  </q>
+  </quotation>
   </cit>
   </epigraph>
   <!-- no bibl supplied in Cabinet none given in Harvey either -->
@@ -2425,13 +2425,13 @@
 
   <epigraph>
    <cit>
-    <q>
+    <quotation>
      <l><hi rend="italic">1st Gent.</hi> An ancient land in ancient oracles</l>
      <l>Is called "law-thirsty: all the struggle there</l>
      <l>Was after order and a perfect rule.</l> 
      <l>Pray, where lie such lands now? . .</l> 
      <l><hi rend="italic">2d Gent.</hi> Why, where they lay of old— in human souls.</l>
-    </q>
+    </quotation>
    </cit>
    </epigraph>
       
@@ -2811,8 +2811,8 @@
 
   <epigraph>
    <cit>
-    <q>"He had catched a great cold, had he had no other clothes to wear than the skin of a bear not
-     yet killed."</q>
+    <quotation>"He had catched a great cold, had he had no other clothes to wear than the skin of a bear not
+     yet killed."</quotation>
      <bibl>— FULLER</bibl> 
    </cit>
   </epigraph>
@@ -3210,12 +3210,12 @@
 
   <epigraph>
    <cit>
-    <q>
+    <quotation>
      <l>"But deeds and language such as men do use,</l> 
      <l>And persons such as comedy would choose,</l> 
      <l>When she would show an image of the times,</l> 
      <l>And sport with human follies, not with crimes."</l>
-    </q> 
+    </quotation> 
     <bibl>—BEN JONSON.</bibl>
     </cit>
   </epigraph>
@@ -3585,8 +3585,8 @@
 
   <epigraph>
    <cit>
-    <q><l>"He had more tow on his distaffe</l> 
-    <l>Than Gerveis knew."</l></q>
+    <quotation><l>"He had more tow on his distaffe</l> 
+    <l>Than Gerveis knew."</l></quotation>
     <bibl>CHAUCER.</bibl>
    </cit>
    </epigraph>
@@ -4277,7 +4277,7 @@
    
    <epigraph>
     <cit>
-     <q><l><hi rend="italic">1st Gent.</hi> How class your man? as better than the most</l>, 
+     <quotation><l><hi rend="italic">1st Gent.</hi> How class your man? as better than the most</l>, 
     <l>Or, seeming better, worse beneath that</l>
     <l>cloak? As saint or knave, pilgrim or hypocrite?</l>
       <l><hi rend="italic">2nd Gent.</hi> Nay, tell me how you class your wealth of books,</l> 
@@ -4286,7 +4286,7 @@
     <l>Vellum,tall copies, and the common calf</l> 
     <l>Will hardly cover more diversity</l>
     <l>Than all your labels cunningly devised</l>
-    <l> To class your unread authors.</l></q>
+    <l> To class your unread authors.</l></quotation>
     </cit>
    </epigraph>
    
@@ -4603,7 +4603,7 @@
     
    <epigraph>
     <cit>
-    <q>
+    <quotation>
     <l>Follows here the strict receipt</l>
     <l>For that sauce to dainty meat,</l>
     <l>Named Idleness, which many eat</l>
@@ -4613,7 +4613,7 @@
      <l><hi rend="italic">With good thick oil of flatteries,</hi></l> 
      <l><hi rend="italic">And froth with mean self lauding lies.</hi></l> 
      <l><hi rend="italic">Serve warm: the vessels you must choose</hi></l> 
-     <l><hi rend="italic">To keep it in are dead men's shoes.</hi></l></q>
+     <l><hi rend="italic">To keep it in are dead men's shoes.</hi></l></quotation>
     </cit>
    </epigraph>
     <!-- we need to indent the lines in italic above by 2 characters -->
@@ -4977,7 +4977,7 @@
    
    <epigraph>
    <cit>
-   <q><l>"Black eyes you have left, you say,</l> 
+   <quotation><l>"Black eyes you have left, you say,</l> 
    <l>Blue eyes fail to draw you;</l> 
    <l>Yet you seem more rapt to-day,</l>
    <l>Than of old we saw you.</l> 
@@ -4990,7 +4990,7 @@
    <l>Lo! she turns—immortal youth</l> 
    <l>Wrought to mortal stature,</l> 
    <l>Fresh as starlight's aged truth</l>
-   <l>Many-named Nature!"</l></q>
+   <l>Many-named Nature!"</l></quotation>
    </cit>
    </epigraph>
    
@@ -5404,10 +5404,10 @@
 
    <epigraph>
    <cit>
-   <q><l>"All that in woman is adored</l> 
+   <quotation><l>"All that in woman is adored</l> 
     <l>In thy fair self I find—</l> 
     <l>For the whole sex can but afford</l> 
-    <l>The handsome and the kind."</l></q>
+    <l>The handsome and the kind."</l></quotation>
    <bibl>SIR CHARLES SEDLEY.</bibl> 
     </cit>
     </epigraph>
@@ -5860,9 +5860,9 @@
 
    <epigraph>
    <cit>
-   <q><l>The clerkly person smiled and said,</l> 
+   <quotation><l>The clerkly person smiled and said,</l> 
     <l>Promise was a pretty maid,</l> 
-    <l>But being poor she died unwed.</l></q>
+    <l>But being poor she died unwed.</l></quotation>
    </cit>
    </epigraph>
    
@@ -6177,11 +6177,11 @@
 
   <epigraph>
   <cit>
-    <q><l>"Oh, sir, the loftiest hopes on earth</l> 
+    <quotation><l>"Oh, sir, the loftiest hopes on earth</l> 
     <l>Draw lots with meaner hopes: heroic breasts,</l> 
     <l>Breathing bad air, run risk of pestilence:</l> 
     <l>>Or, lacking lime-juice when they cross the Line</l>
-    <l>May languish with the scurvy."</l></q>
+    <l>May languish with the scurvy."</l></quotation>
   </cit>
   </epigraph>
     
@@ -6557,8 +6557,8 @@
 
    <epigraph>
    <cit>
-   <q><l>"L'altra vedete ch'ha fatto alla guancia</l> 
-    <l>Della sua palma, sospirando, letto."</l></q>
+   <quotation><l>"L'altra vedete ch'ha fatto alla guancia</l> 
+    <l>Della sua palma, sospirando, letto."</l></quotation>
     <bibl><hi rend="italic">Purgatorio</hi>, vii.</bibl>
    </cit>
    </epigraph>
@@ -6712,10 +6712,10 @@
 
    <epigraph>
     <cit> 
-   <q><l>A child forsaken, waking suddenly,</l> 
+   <quotation><l>A child forsaken, waking suddenly,</l> 
     <l>Whose gaze afeard on all things round doth rove,</l> 
     <l>And seeth only that it cannot see</l> 
-    <l>The meeting eyes of love.</l></q>
+    <l>The meeting eyes of love.</l></quotation>
     </cit>
     </epigraph>
    <!-- last line of poetry above needs to be centred.-->
@@ -7079,9 +7079,9 @@
    
     <epigraph>
     <cit>
-   <q><l>"Hire facounde eke full womanly and plain,</l> 
+   <quotation><l>"Hire facounde eke full womanly and plain,</l> 
     <l>No contrefeted termes had she</l> 
-    <l>To semen wise."</l></q>
+    <l>To semen wise."</l></quotation>
     <bibl>—CHAUCER.</bibl>
     </cit>
     </epigraph>
@@ -7358,12 +7358,12 @@
 
    <epigraph>
     <cit>
-    <q>"Nous causames longtemps; elle etait simple et bonne. 
+    <quotation>"Nous causames longtemps; elle etait simple et bonne. 
     Ne sachant pas le mal, elle faisait le bien; 
     Des richesses du coeur elle me fit l'aumone, 
     Et tout en ecoutant comme le coeur se donne,
     Sans oser y penser, je lui donnai le mien; 
-    Elle emporta ma vie, et n'en sut jamais rien."</q>
+    Elle emporta ma vie, et n'en sut jamais rien."</quotation>
     <bibl>ALFRED DE MUSSET.</bibl>
     </cit>
     </epigraph>
@@ -7889,10 +7889,10 @@
 
    <epigraph>
    <cit>
-   <q><l>"Your horses of the Sun," he said,</l> 
+   <quotation><l>"Your horses of the Sun," he said,</l> 
       <l>"And first-rate whip Apollo!</l> 
    <l>Whate'er they be, I'll eat my head,</l> 
-      <l>But I will beat them hollow."</l></q>
+      <l>But I will beat them hollow."</l></quotation>
    </cit>
    </epigraph>
  
@@ -8255,8 +8255,8 @@
 
    <epigraph>
    <cit>
-    <q><l>"The offender's sorrow brings but small relief</l> 
-    <l>To him who wears the strong offence's cross."</l></q>
+    <quotation><l>"The offender's sorrow brings but small relief</l> 
+    <l>To him who wears the strong offence's cross."</l></quotation>
     <bibl>—SHAKESPEARE: <hi rend="italic">Sonnets.</hi></bibl>
    </cit>
    </epigraph>
@@ -8663,7 +8663,7 @@
 
    <epigraph>
    <cit>
-   <q><l>"Love seeketh not itself to please,</l> 
+   <quotation><l>"Love seeketh not itself to please,</l> 
     <l>Nor for itself hath any care,</l> 
     <l>But for another gives its ease,</l>
     <l>And builds a heaven in hell's despair.</l>
@@ -8671,7 +8671,7 @@
    <l>Love seeketh only self to please,</l> 
     <l>To bind another to its delight</l>, 
     <l>Joys in another's loss of ease,</l> 
-    <l>And builds a hell in heaven's despite."</l></q>
+    <l>And builds a hell in heaven's despite."</l></quotation>
     <bibl>W. BLAKE: <hi rend="italic">Songs of Experience.</hi></bibl>
    </cit>
    </epigraph>
@@ -8919,8 +8919,8 @@
 
    <epigraph>
    <cit>
-   <q>"He beats me and I rail at him: O worthy satisfaction! would it were otherwise—that I could
-    beat him while he railed at me."</q>
+   <quotation>"He beats me and I rail at him: O worthy satisfaction! would it were otherwise—that I could
+    beat him while he railed at me."</quotation>
     <bibl><hi rend="italic">— Troilus and Cressida.</hi></bibl> 
    </cit>
    </epigraph>
@@ -9088,8 +9088,8 @@
 
    <epigraph>
    <cit>
-   <q><l>"Let the high Muse chant loves Olympian:</l>    
-    <l>We are but mortals, and must sing of man."</l></q>
+   <quotation><l>"Let the high Muse chant loves Olympian:</l>    
+    <l>We are but mortals, and must sing of man."</l></quotation>
     </cit>
     </epigraph>
    
@@ -9480,14 +9480,14 @@
 
    <epigraph>
    <cit>
-    <q><l><hi rend="italic">1st Gent.</hi> All times are good to seek your wedded home</l>
+    <quotation><l><hi rend="italic">1st Gent.</hi> All times are good to seek your wedded home</l>
     <l>Bringing a mutual delight.</l> 
      <l><hi rend="italic">2d Gent.</hi> Why true.</l> 
     <l>The calendar hath not an evil day</l>
     <l>For souls made one by love, and even death</l> 
     <l>Were sweetness, if it came like rolling waves</l> 
     <l>While they two clasped each other, and foresaw</l>
-    <l>No life apart.</l></q>
+    <l>No life apart.</l></quotation>
     </cit>
     </epigraph>
  
@@ -9665,8 +9665,8 @@
 
    <epigraph>
    <cit>
-    <q>"I found that no genius in another could please me. My unfortunate paradoxes had entirely
-    dried up that source of comfort."</q> 
+    <quotation>"I found that no genius in another could please me. My unfortunate paradoxes had entirely
+    dried up that source of comfort."</quotation> 
     <bibl>GOLDSMITH.</bibl>
     </cit>
     </epigraph>
@@ -9931,7 +9931,7 @@
 
    <epigraph>
    <cit>
-   <q>"Qui veut delasser hors de propos, lasse."</q>
+   <quotation>"Qui veut delasser hors de propos, lasse."</quotation>
     <bibl>—PASCAL.</bibl>
    </cit>
    </epigraph>
@@ -10165,13 +10165,13 @@
 
    <epigraph>
     <cit>
-    <q><l>How will you know the pitch of that great bell</l> 
+    <quotation><l>How will you know the pitch of that great bell</l> 
      <l>Too large for you to stir? Let but a flute</l>    
      <l>Play 'neath the fine-mixed metal: listen close</l> 
      <l>Till the right note flows forth, a silvery rill:</l> 
      <l>Then shall the huge bell tremble—then the mass</l>
      <l>With myriad waves concurrent shall respond</l> 
-     <l>In low soft unison.</l></q>
+     <l>In low soft unison.</l></quotation>
     </cit>
     </epigraph>
     
@@ -10523,7 +10523,7 @@
 
    <epigraph>
    <cit>
-    <q><l>"They'll take suggestion as a cat laps milk."</l></q>
+    <quotation><l>"They'll take suggestion as a cat laps milk."</l></quotation>
     <bibl>SHAKESPEARE: <hi rend="italic">Tempest.</hi></bibl>
    </cit>
    </epigraph>
@@ -10914,8 +10914,8 @@
 
    <epigraph>
    <cit>
-     <q><l>"Close up his eyes and draw the curtain close;</l> 
-     <l>And let us all to meditation.w"</l></q> 
+     <quotation><l>"Close up his eyes and draw the curtain close;</l> 
+     <l>And let us all to meditation.w"</l></quotation> 
     <bibl><hi rend="italic">—2 Henry VI.</hi></bibl>
    </cit>
    </epigraph>
@@ -11135,14 +11135,14 @@
      
      <epigraph>
      <cit>
-      <q><l><hi rend="italic">"1st Gent.</hi> Such men as this are feathers, chips, and straws,</l> 
+      <quotation><l><hi rend="italic">"1st Gent.</hi> Such men as this are feathers, chips, and straws,</l> 
      <l>Carry no weight, no force.</l> 
        <l><hi rend="italic">2d Gent.</hi>But levity</l>
      <l>Is causal too, and makes the sum of weight.</l> 
      <l>For power finds its place in lack of power;</l> 
      <l>Advance is cession, and the driven ship</l> 
      <l>May run aground because the helmsman's thought</l>
-     <l>Lacked force to balance opposites."</l></q>
+     <l>Lacked force to balance opposites."</l></quotation>
      </cit>
      </epigraph>
      
@@ -11408,13 +11408,13 @@
 
    <epigraph>
     <cit>
-    <q><l>"Non, je ne comprends pas de plus charmant plaisir</l> 
+    <quotation><l>"Non, je ne comprends pas de plus charmant plaisir</l> 
     <l>Que de voir d'heritiers une troupe affligee,</l> 
     <l>Le maintien interdit, et la mine allongee,</l> 
     <l>Lire un long testament ou pales, etonnes,</l>
     <l>On leur laisse un bonsoir avec un pied de nez.</l> 
     <l>Pour voir au naturel leur tristesse profonde,</l> 
-    <l>Je reviendrais, je crois, expres de l'autre monde."</l></q> 
+    <l>Je reviendrais, je crois, expres de l'autre monde."</l></quotation> 
      <bibl>REGNARD: <hi rend="italic">Le Legataire Universel.</hi></bibl> 
     </cit>
     </epigraph>
@@ -11788,7 +11788,7 @@
 
   <epigraph>
   <cit>
-     <q><l>"'Tis strange to see the humours of these men,</l> 
+     <quotation><l>"'Tis strange to see the humours of these men,</l> 
      <l>These great aspiring spirits, that should be wise:</l>
     <!-- row of dots needed here to match original -->
      <l>For being the nature of great spirits to love</l> 
@@ -11799,7 +11799,7 @@
      <l>All that they do or say; which makes them strive</l> 
      <l>To make our admiration more extreme,</l> 
      <l>Which they suppose they cannot, 'less they giv</l>e 
-     <l>Notice of their extreme and highest thoughts."</l></q> 
+     <l>Notice of their extreme and highest thoughts."</l></quotation> 
    <bibl>—DANIEL: <hi rend="italic">Tragedy of Philotas.</hi></bibl>
   </cit>
   </epigraph>
@@ -12342,7 +12342,7 @@
 
   <epigraph>
   <cit>
- <q><l>"Thrice happy she that is so well assured</l>
+ <quotation><l>"Thrice happy she that is so well assured</l>
   <l>Unto herself, and settled so in heart,</l> 
   <l>That neither will for better be allured</l> 
   <l>Ne fears to worse with any chance to start,</l> 
@@ -12355,7 +12355,7 @@
   <l>But in the stay of her own stedfast might</l>
   <l>Neither to one herself nor other bends.</l>
   <l>Most happy she that most assured doth rest,</l> 
-  <l>But he most happy who such one loves best."</l></q>
+  <l>But he most happy who such one loves best."</l></quotation>
    <!--indent last 2 lines of sonnet-->
    <bibl>SPENCER.</bibl>
    <!-- Sonnet 59, Amoretti, 1595-->
@@ -13067,8 +13067,8 @@
 
    <epigraph>
    <cit>
-   <q>"C'est beaucoup que le jugement des homines sur les actions humaines; tot ou tard il devient
-    efficace."</q></cit> 
+   <quotation>"C'est beaucoup que le jugement des homines sur les actions humaines; tot ou tard il devient
+    efficace."</quotation></cit> 
    <bibl>GUIZOT.</bibl> 
     <!--Histoire de la civilisation en France depuis la chute de l'empire romain 1845-->
    </epigraph>
@@ -13381,7 +13381,7 @@
 
     <epigraph>
     <cit>
-     <q><l>"If, as I have, you also doe,</l> 
+     <quotation><l>"If, as I have, you also doe,</l> 
           <l>Vertue attired in woman see,</l> 
       <l>And dare love that, and say so too,</l>
           <l>And forget the He and She;</l>
@@ -13394,7 +13394,7 @@
        <l>Then you have done a braver thing</l> 
             <l>Than all the Worthies did,</l> 
         <l>And a braver thence will spring,</l>
-            <l>Which is, to keep that hid."</l></q> 
+            <l>Which is, to keep that hid."</l></quotation> 
     <bibl>DR DONNE.</bibl>
     </cit>
   </epigraph>
@@ -13788,14 +13788,14 @@
 
    <epigraph>
    <cit>
-    <q><l>Wise in his daily work was he</l>: 
+    <quotation><l>Wise in his daily work was he</l>: 
          <l>To fruits of diligence,</l> 
      <l>And not to faiths or polity,</l> 
          <l>He plied his utmost sense.</l> 
      <l>These perfect in their little parts,</l> 
          <l>Whose work is all their prize</l> 
      <l>Without them how could laws, or arts,</l> 
-         <l>Or towered cities rise?</l></q>
+         <l>Or towered cities rise?</l></quotation>
    </cit>
    </epigraph>
     
@@ -14275,8 +14275,8 @@
 
     <epigraph>
     <cit>
-     <q><l>"By swaggering could I never thrive,</l> 
-      <l>For the rain it raineth every day."</l></q></cit>
+     <quotation><l>"By swaggering could I never thrive,</l> 
+      <l>For the rain it raineth every day."</l></quotation></cit>
      <bibl><hi rend="italic">Twelfth Night.</hi></bibl> 
     </epigraph>
      
@@ -14444,8 +14444,8 @@
 
    <epigraph>
     <cit>
-     <q><l>"How much, methinks, I could despise this man,</l> 
-     <l>Were I not bound in charity against it!"</l></q></cit>
+     <quotation><l>"How much, methinks, I could despise this man,</l> 
+     <l>Were I not bound in charity against it!"</l></quotation></cit>
     <bibl>SHAKESPEARE: <hi rend="italic">Henry VIII.</hi></bibl> 
    </epigraph>
      
@@ -14833,7 +14833,7 @@
 
 <epigraph>
  <cit>
-  <q><l>This figure hath high price: 'twas wrought with love</l>
+  <quotation><l>This figure hath high price: 'twas wrought with love</l>
    <l>Ages ago in finest ivory; </l>
    <l>Nought modish in it, pure and noble lines</l>
    <l>Of generous womanhood that fits all time</l>
@@ -14841,7 +14841,7 @@
    <l>Of deft design, to please a lordly eye:</l>
    <l>The smile, you see is perfect wonderful</l>
    <l>As mere Faience! a table ornament</l> 
-   <l>To suit the richest mounting.</l></q></cit>
+   <l>To suit the richest mounting.</l></quotation></cit>
 </epigraph>
      
    <p>Dorothea seldom left home without her husband, but she did occasionally drive into Middlemarch
@@ -15086,8 +15086,8 @@
 
    <epigraph>
     <cit>
-     <q><l>I would not creep along the coast, but steer</l>
-     <l>Out in mid-sea, by guidance of the stars.</l></q>  
+     <quotation><l>I would not creep along the coast, but steer</l>
+     <l>Out in mid-sea, by guidance of the stars.</l></quotation>  
     </cit>
    </epigraph>
      
@@ -15198,12 +15198,12 @@
      
     <epigraph>
     <cit>
-    <q>"It is the humour of many heads to extol the days of their forefathers, and
+    <quotation>"It is the humour of many heads to extol the days of their forefathers, and
     declaim against the wickedness of times present. Which notwithstanding they cannot handsomely
     do, without the borrowed help and satire of times past; condemning the vices of their own times,
     by the expressions of vices in times which they commend, which cannot but argue the community of
     vice in both. Horace, therefore, Juvenal, and Persius, were no prophets, although their lines
-    did seem to indigitate and point at our times."</q></cit> 
+    did seem to indigitate and point at our times."</quotation></cit> 
      <bibl>SIR THOMAS BROWNE: <hi rend="italic">Pseudodoxia Epidemica.</hi></bibl>
     </epigraph>
      
@@ -15790,8 +15790,8 @@
 
    <epigraph>
     <cit>
-    <q><l>"Pues no podemos haber aquello que queremos, queramos aquello que podremos."</l>
-    <l>"Since we cannot get what we like, let us like what we can get."</l></q></cit> 
+    <quotation><l>"Pues no podemos haber aquello que queremos, queramos aquello que podremos."</l>
+    <l>"Since we cannot get what we like, let us like what we can get."</l></quotation></cit> 
     <bibl><hi rend="italic">— Spanish Proverb.</hi></bibl> 
    </epigraph>
     
@@ -16122,14 +16122,14 @@
 
 <epigraph>
  <cit>
-  <q><l>Was never true love loved in vain,</l> 
+  <quotation><l>Was never true love loved in vain,</l> 
   <l>For truest love is highest gain.</l> 
   <l>No art can make it: it must spring</l> 
   <l>Where elements are fostering.</l> 
     <l>So in heaven's spot and hour</l> 
     <l>Springs the little native flower,</l> 
     <l>Downward root and upward eye,</l> 
-    <l>Shapen by the earth and sky.</l></q>
+    <l>Shapen by the earth and sky.</l></quotation>
 </cit>
 </epigraph>
      
@@ -16308,12 +16308,12 @@
 
 <epigraph>
 <cit>
- <q><l>Surely the golden hours are turning grey</l> 
+ <quotation><l>Surely the golden hours are turning grey</l> 
  <l>And dance no more, and vainly strive to run:</l> 
   <l>I see their white locks streaming in the wind</l>
   <l>Each face is haggard as it looks at me,</l> 
   <l>Blow turning in the constant clasping round</l>
-  <l>Storm-driven.</l></q>
+  <l>Storm-driven.</l></quotation>
 </cit>
 </epigraph>
      
@@ -16640,10 +16640,10 @@
 
 <epigraph>
  <cit>
-  <q><l>A task too strong for wizard spells</l> 
+  <quotation><l>A task too strong for wizard spells</l> 
   <l>This squire had brought about;</l> 
    <l>Tis easy dropping stones in wells,</l> 
-   <l>But who shall get them out?</l></q>
+   <l>But who shall get them out?</l></quotation>
  </cit>
 </epigraph>
      
@@ -16800,12 +16800,12 @@
      
     <epigraph>
     <cit>
-     <q><l>"'This Loller here wol prechen us somewhat.'</l> 
+     <quotation><l>"'This Loller here wol prechen us somewhat.'</l> 
      <l>'Nay by my father's soule! that schal he nat,'</l>
      <l>Sayde the Schipman, 'here schal he not preche,</l> 
      <l>He schal no gospel glosen here ne teche.</l>
      <l>We leven all in the gret God,' quod he.</l>
-     <l>He wolden sowen some diffcultee."</l></q></cit>
+     <l>He wolden sowen some diffcultee."</l></quotation></cit>
     <bibl><hi rend="italics">—Canterbury Tales.</hi></bibl>
      </epigraph>
      <!-- 'The Man of Law's Epilogue'-->
@@ -17152,7 +17152,7 @@
 
   <epigraph>
   <cit>
-  <q><l>Party is Nature too, and you shall see</l> 
+  <quotation><l>Party is Nature too, and you shall see</l> 
   <l>By force of Logic how they both agree:</l> 
   <l>The Many in the One, the One in Many;</l> 
   <l>All is not Some, nor Some the same as Any:</l> 
@@ -17161,7 +17161,7 @@
   <l>Each species has its differentia too,</l>
   <l>This is not That, and He was never You,</l> 
   <l>Though this and that are ayes, and you and he</l> 
-  <l>Are like as one to one, or three to three.</l></q>
+  <l>Are like as one to one, or three to three.</l></quotation>
   </cit>
   </epigraph>
     
@@ -17562,8 +17562,8 @@
 
 <epigraph>
  <cit><!-- range 1st line of poem extract below left-->
-                               <q><l>"His heart</l> 
-      <l>The lowliest duties on itself did lay."</l></q>
+                               <quotation><l>"His heart</l> 
+      <l>The lowliest duties on itself did lay."</l></quotation>
  </cit> 
     <bibl>-WORDSWORTH.</bibl> 
 </epigraph>
@@ -17931,9 +17931,9 @@
 
 <epigraph>
  <cit>
-   <q>It is but a shallow haste which concludeth insincerity from what out-siders call
+   <quotation>It is but a shallow haste which concludeth insincerity from what out-siders call
     inconsistency putting a dead mechanism of "ifs" and "therefores" for the living myriad of hidden
-    suckers whereby the belief and the conduct are wrought into mutual sustainment.</q>
+    suckers whereby the belief and the conduct are wrought into mutual sustainment.</quotation>
  </cit>
 </epigraph>
      
@@ -18380,7 +18380,7 @@
 <!-- indent each set of 3 lines under 1st line of each quartrain-->
  <epigraph>
  <cit>
-  <q><l>"Negli occhi porta la mia donna Amore;</l> 
+  <quotation><l>"Negli occhi porta la mia donna Amore;</l> 
   <l>Per che si fa gentil ciò ch'ella mira:</l> 
    <l>Ov'ella passa, ogni nom ver lei si gira,</l> 
    <l>E cui saluta fa tremar lo core.</l> 
@@ -18393,7 +18393,7 @@
    <l>Ond' è beato chi prima la vide.</l> 
    <l>Quel ch'ella par quand' un poco sorride,</l> 
    <l>Non si può dicer, ne tener a mente,</l> 
-   <l>Si è nuovo miracolo gentile."</l></q></cit> 
+   <l>Si è nuovo miracolo gentile."</l></quotation></cit> 
  <bibl>—DANTE: <hi rend="italics">La Vita Nuova.</hi></bibl>
 </epigraph>
    
@@ -18789,11 +18789,11 @@
 
 <epigraph>
  <cit>
-   <q><l>Hath she her faults? I would you had them too.</l> 
+   <quotation><l>Hath she her faults? I would you had them too.</l> 
    <l>They are the fruity must of soundest wine;</l>  
     <l>Or say, they are regenerating fire</l>  
     <l>Such as hath turned the dense black element</l>  
-    <l>Into a crystal pathway for the sun.</l> </q>
+    <l>Into a crystal pathway for the sun.</l> </quotation>
 </cit>
 </epigraph>
      
@@ -18951,7 +18951,7 @@
 
 <epigraph>
  <cit>
-  <q><l>"How happy is he born and taught</l>    
+  <quotation><l>"How happy is he born and taught</l>    
    <l>That serveth not another's will;</l> 
    <l>Whose armour is his honest thought</l> 
    <l>And simple truth his only skill!</l>
@@ -18959,7 +18959,7 @@
    <l>This man is freed from servile bands</l> 
    <l>Of hope to rise, or fear to fall;</l> 
    <l>Lord of himself, though not of lands;</l> 
-   <l>And having nothing, yet hath all."</l></q></cit>
+   <l>And having nothing, yet hath all."</l></quotation></cit>
     <bibl>SIR HENRY WOTTON.</bibl>
 </epigraph>
      <!-- The Character of a Happy Life Wotton 1568-1539-->
@@ -19643,7 +19643,7 @@
 <!-- ever other line of 1srt 12 lines of sonnet to be slightly indented; last couple more indented-->
 <epigraph>
  <cit>
-  <q><l>They numbered scarce eight summers when a name</l> 
+  <quotation><l>They numbered scarce eight summers when a name</l> 
     <l>Rose on their souls and stirred such motions there </l>
   <l>As thrill the buds and shape their hidden frame</l> 
     <l>At penetration of the quickening air:</l> 
@@ -19656,7 +19656,7 @@
   <l>Sent them this wealth of joy and noble grief.</l> 
     <l>The book and they must part, but day by day,</l> 
       <l>In lines that thwart like portly spiders ran,</l> 
-      <l>They wrote the tale, from Tully Veolan.</l></q>
+      <l>They wrote the tale, from Tully Veolan.</l></quotation>
  </cit>
 </epigraph>
    
@@ -20003,14 +20003,14 @@
 
 <epigraph>
 <cit>
-    <q><l>"For there can live no hatred in thine eye,</l> 
+    <quotation><l>"For there can live no hatred in thine eye,</l> 
     <l>Therefore in that I cannot know thy change:</l> 
      <l>In many's looks the false heart's history</l> 
      <l>Is writ in moods and frowns and wrinkles strange;</l> 
      <l>But Heaven in thy creation did decree</l> 
      <l>That in thy face sweet love should ever dwell;</l> 
      <l>Whate'er thy thoughts or thy heart's workings be,</l> 
-     <l>Thy looks should nothing thence but sweetness tell."</l></q></cit>
+     <l>Thy looks should nothing thence but sweetness tell."</l></quotation></cit>
  <bibl>SHAKESPEARE: <hi rend="italics">Sonnets.</hi></bibl>
 </epigraph>
     
@@ -20644,12 +20644,12 @@
 
 <epigraph>
  <cit>
-   <q>They said of old the Soul had human shape, 
+   <quotation>They said of old the Soul had human shape, 
     But smaller, subtler than the fleshly self, 
     So wandered forth for airing when it pleased. 
     And see l beside her cherub-face there floats 
     A pale-lipped form aerial whispering 
-    Its promptings in that little shell her ear.</q></cit>
+    Its promptings in that little shell her ear.</quotation></cit>
 </epigraph>
     
    <p>News is often dispersed as thoughtlessly and effectively as that pollen which the bees carry
@@ -20765,7 +20765,7 @@
      
 <epigraph>
  <cit>
-  <q>"Good phrases are surely, and ever were, very commendable."</q></cit> 
+  <quotation>"Good phrases are surely, and ever were, very commendable."</quotation></cit> 
  <bibl><hi rend="italics">Justice Shallow.</hi></bibl> 
  <!-- from Henry IV Pt2, Act III Sc 2-->
 </epigraph>
@@ -21115,8 +21115,8 @@
      
 <epigraph>
  <cit>
-   <q>"'Inconsistencies,' answered Imlac, 'cannot both be right, but imputed to man they may both be
-    true.'"</q></cit> <bibl><hi rend="italics">— Rasselas.</hi></bibl>
+   <quotation>"'Inconsistencies,' answered Imlac, 'cannot both be right, but imputed to man they may both be
+    true.'"</quotation></cit> <bibl><hi rend="italics">— Rasselas.</hi></bibl>
 </epigraph>
      <!-- The History of Imlac, Ch.8 Samuel Johnson 1759-->
      
@@ -21585,8 +21585,8 @@
 
 <epigraph>
  <cit>
- <q><l>"He was a squyer of lowe degre,</l> 
-  <l>That loved the king's daughter of Hungrie."</l></q></cit> 
+ <quotation><l>"He was a squyer of lowe degre,</l> 
+  <l>That loved the king's daughter of Hungrie."</l></quotation></cit> 
  <bibl><hi rend="italic">Old Romance.</hi></bibl>
 </epigraph>
      
@@ -21977,7 +21977,7 @@
 
 <epigraph>
  <cit>
-  <q>"These little things are great to little man."</q></cit>
+  <quotation>"These little things are great to little man."</quotation></cit>
  <bibl>— GOLDSMITH.</bibl>
 </epigraph>
 <!-- The Traveller 1764-->
@@ -22255,14 +22255,14 @@
 
    <epigraph>
     <cit>
-     <q><l><hi rend="italic">1st Gent.</hi> Where lies the power, there let the blame lie too.</l> 
+     <quotation><l><hi rend="italic">1st Gent.</hi> Where lies the power, there let the blame lie too.</l> 
       <l><hi rend="italic">2d Gent.</hi> Nay, power is relative; you cannot fright</l> 
      <l>The coming pest with border fortresses,</l> 
      <l>Or catch your carp with subtle argument.</l> 
      <l>All force is twain in one: cause is not cause</l> 
      <l>Unless effect be there; and action's self</l> 
      <l>Must needs contain a passive. So command</l> 
-     <l>Exists but with obedience.</l></q></cit>
+     <l>Exists but with obedience.</l></quotation></cit>
    </epigraph>
     
    <p>Even if Lydgate had been inclined to be quite open about his affairs, he knew that it would
@@ -22827,9 +22827,9 @@
 
 <epigraph>
  <cit>
-  <q><l>"One of us two must bowen douteless,</l> 
+  <quotation><l>"One of us two must bowen douteless,</l> 
   <l>And, sith a man is more reasonable</l> 
-   <l>Than woman is, ye [men] moste be suffrable."</l></q></cit> 
+   <l>Than woman is, ye [men] moste be suffrable."</l></quotation></cit> 
  <bibl>CHAUCER: <hi rend="italics">Canterbury Tales.</hi></bibl>
  <!-- The Wife of Bath's Tale 446-8. sq brackets around 'men' are in both Harvey and Cabinet eds -->
 </epigraph>
@@ -23004,8 +23004,8 @@
     
 <epigraph>
  <cit>
-  <q><l>"Tis one thing to be tempted, Escalus,</l> 
-  <l>Another thing to fall."</l></q></cit> 
+  <quotation><l>"Tis one thing to be tempted, Escalus,</l> 
+  <l>Another thing to fall."</l></quotation></cit> 
  <bibl><hi rend="italics">Measure for Measure.</hi></bibl>
  
 </epigraph>
@@ -23325,12 +23325,12 @@
 
 <epigraph>
 <cit>
- <q><l>Now is there civil war within the soul:</l> 
+ <quotation><l>Now is there civil war within the soul:</l> 
  <l>Resolve is thrust from off the sacred throne</l> 
  <l>By clamorous Needs, and Pride the grand-vizier</l> 
  <l>Makes humble compact, plays the supple part</l> 
   <l>Of envoy and deft-tongued apologist</l> 
- <l>For hungry rebels.</l></q></cit>
+ <l>For hungry rebels.</l></quotation></cit>
 </epigraph>
      
    <p>Happily Lydgate had ended by losing in the billiard-room, and brought away no encouragement to
@@ -23585,7 +23585,7 @@
 
    <epigraph>
     <cit>
-     <q><l>"What suit of grace hath Virtue to put on</l> 
+     <quotation><l>"What suit of grace hath Virtue to put on</l> 
      <l>If Vice shall wear as good, and do as well?</l> 
      <l>If Wrong, if Craft, if Indiscretion</l> 
      <l>Act as fair parts with ends as laudable?</l> 
@@ -23596,7 +23596,7 @@
      <l>For should not grave and learn'd Experience</l> 
      <l>That looks with the eyes of all the world beside,</l> 
      <l>And with all ages holds intelligence,</l> 
-     <l>Go safer than Deceit without a guide!"</l></q></cit> 
+     <l>Go safer than Deceit without a guide!"</l></quotation></cit> 
     <bibl>DANIEL: <hi rend="italic">Musophilus.</hi></bibl> 
    </epigraph>
     <!--1599-->
@@ -23846,7 +23846,7 @@
 
 <epigraph>
  <cit>
-  <q>"If thou hast heard a word, let it die with thee."</q></cit>
+  <quotation>"If thou hast heard a word, let it die with thee."</quotation></cit>
  <bibl><hi rend="italic">Ecclesiasticus.</hi></bibl>
 </epigraph>
      
@@ -24205,8 +24205,8 @@
 
    <epigraph>
     <cit> 
-     <q><l>Our deeds still travel with us from afar,</l> 
-     <l>And what we have been makes us what we are.</l></q></cit>
+     <quotation><l>Our deeds still travel with us from afar,</l> 
+     <l>And what we have been makes us what we are.</l></quotation></cit>
    </epigraph>
     
    <p>Bulstrode's first object after Lydgate had left Stone Court was to examine Raffles's pockets,
@@ -24632,10 +24632,10 @@
 
 <epigraph>
  <cit>
-  <q><hi rend="italic">"Clown.</hi> ...'Twas in the Bunch of Grapes, where, indeed, you have a delight to sit, have you
+  <quotation><hi rend="italic">"Clown.</hi> ...'Twas in the Bunch of Grapes, where, indeed, you have a delight to sit, have you
     not? 
    <hi rend="italic">"Froth.</hi> I have so; because it is an open room, and good for winter. 
-   <hi rend="italic">"Clo.</hi> Why, very well then: I hope here be truths."</q></cit>
+   <hi rend="italic">"Clo.</hi> Why, very well then: I hope here be truths."</quotation></cit>
  <bibl><hi rend="italic">Measure for Measure.</hi></bibl> 
 </epigraph>
      
@@ -25195,9 +25195,9 @@
 
 <epigraph>
  <cit>
-  <q><l>Full souls are double mirrors, making still</l> 
+  <quotation><l>Full souls are double mirrors, making still</l> 
   <l>An endless vista of fair things before,</l> 
-  <l>Repeating things behind.</l></q></cit>
+  <l>Repeating things behind.</l></quotation></cit>
 </epigraph>
     
    <p>Dorothea's impetuous generosity, which would have leaped at once to the vindication of Lydgate
@@ -25335,8 +25335,8 @@
 
 <epigraph>
  <cit>
-  <q><l>Pity the laden one; this wandering woe</l> 
-  <l>May visit you and me.</l></q></cit>
+  <quotation><l>Pity the laden one; this wandering woe</l> 
+  <l>May visit you and me.</l></quotation></cit>
 </epigraph>
      
    <p>When Lydgate had allayed Mrs Bulstrode's anxiety by telling her that her husband had been
@@ -25469,7 +25469,7 @@
      
  <epigraph>
   <cit>
-   <q>"Mercifully grant that we may grow aged together."</q></cit>
+   <quotation>"Mercifully grant that we may grow aged together."</quotation></cit>
   <bibl>—BOOK OF TOBIT: <hi rend="italic">Marriage Prayer.</hi></bibl> 
  </epigraph>
 <!-- Ch. 8 V.7-->
@@ -25835,8 +25835,8 @@
 
 <epigraph>
  <cit>
-    <q>"Le sentiment de la faussete des plaisirs presents, et l'ignorance de la vanite des plaisirs
-     absents, causent l'inconstance."</q></cit>
+    <quotation>"Le sentiment de la faussete des plaisirs presents, et l'ignorance de la vanite des plaisirs
+     absents, causent l'inconstance."</quotation></cit>
  <bibl>PASCAL.</bibl> 
      <!-- accents need to be inserted here - advise what TEI codes for these, please?-->
 </epigraph>
@@ -26096,7 +26096,7 @@
 <!-- please echo indentation of lines here in the html-->
 <epigraph>
  <cit>
-  <q><l>"To mercy, pity, peace, and love</l> 
+  <quotation><l>"To mercy, pity, peace, and love</l> 
      <l>All pray in their distress,</l> 
    <l>And to these virtues of delight,</l>
      <l>Return their thankfulness.</l> 
@@ -26104,7 +26104,7 @@
    <l>For Mercy has a human heart,</l> 
      <l>Pity a human face;</l> 
    <l>And Love, the human form divine;</l> 
-     <l>And Peace, the human dress."</l></q></cit>
+     <l>And Peace, the human dress."</l></quotation></cit>
  <bibl>WILLIAM BLAKE: <hi rend="italic">Songs of Innocence.</hi></bibl> 
 </epigraph>
      
@@ -26436,9 +26436,9 @@
 
 <epigraph>
  <cit>
-  <q><l>And thus thy fall hath left a kind of blot,</l> 
+  <quotation><l>And thus thy fall hath left a kind of blot,</l> 
   <l>To mark the full-fraught man and best indued</l> 
-  <l>With some suspicion.</l></q></cit> 
+  <l>With some suspicion.</l></quotation></cit> 
  <bibl><hi rend="italic">Henry V.</hi></bibl>
 </epigraph>
      
@@ -26670,8 +26670,8 @@
 
 <epigraph>
  <cit>
-  <q><l>Would it were yesterday and I i' the grave,</l> 
-  <l>With her sweet faith above for monument.</l></q></cit>
+  <quotation><l>Would it were yesterday and I i' the grave,</l> 
+  <l>With her sweet faith above for monument.</l></quotation></cit>
 </epigraph>
      
    <p>Rosamond and Will stood motionless —they did not know how long—he looking towards the spot
@@ -26817,9 +26817,9 @@
 
 <epigraph>
  <cit>
-   <q>Now, I saw in my dream, that just as they had ended their talk, they drew nigh to a very miry
+   <quotation>Now, I saw in my dream, that just as they had ended their talk, they drew nigh to a very miry
     slough, that was in the midst of the plain; and they, being heedless, did both fall suddenly
-    into the bog. The name of the slough was Despond.</q></cit> 
+    into the bog. The name of the slough was Despond.</quotation></cit> 
     <bibl>BUNYAN.</bibl>
 </epigraph><!--The Pilgrim's Progress 1678-->
      
@@ -26905,14 +26905,14 @@
 
 <epigraph>
 <cit>
- <q><l>"Stern lawgiver! yet thou dost wear</l> 
+ <quotation><l>"Stern lawgiver! yet thou dost wear</l> 
  <l>The Godhead's most benignant grace;</l> 
  <l>Nor know we anything so fair</l> 
  <l>As is the smile upon thy face;</l> 
  <l>Flowers laugh before thee on their beds,</l> 
  <l>And fragrance in thy footing treads;</l> 
  <l>Thou dost preserve the Stars from wrong;</l> 
-  <l>And the most ancient Heavens, through thee, are fresh and strong."</l></q></cit>
+  <l>And the most ancient Heavens, through thee, are fresh and strong."</l></quotation></cit>
  <bibl>WORDSWORTH: <hi rend="italic">Ode to Duty.</hi></bibl> 
 </epigraph>
     
@@ -27129,11 +27129,11 @@
     
     <epigraph>
 <cit>
- <q><l>"Du Erde warst auch diese Nacht bestandig,</l> 
+ <quotation><l>"Du Erde warst auch diese Nacht bestandig,</l> 
  <l>Und athmest neu erquickt zu meinen Fussen,</l>
  <l>Beginnest schon mit Lust mich zu umgeben,</l> 
  <l>Du regst und ruhrst ein kraftiges Beschliessen</l> 
-  <l><hi rend="italic">Zum hochsten, Dasein immerfortaein immerfort zu streben."</hi></l></q></cit>
+  <l><hi rend="italic">Zum hochsten, Dasein immerfortaein immerfort zu streben."</hi></l></quotation></cit>
      <bibl><hi rend="italic">—Faust:</hi> 2r Theil</bibl>
  <!-- in last line the word 'immerfortaeihn' is not included in Harvey ed. -->
     </epigraph>
@@ -27471,7 +27471,7 @@
 
 <epigraph>
  <cit>
-  <q>"My grief lies onward and my joy behind."</q></cit>
+  <quotation>"My grief lies onward and my joy behind."</quotation></cit>
  <bibl>—SHAKESPEARE: <hi rend="italic">Sonnets.</hi></bibl> 
 </epigraph>
    <p>Exiles notoriously feed much on hopes, and are unlikely to stay in banishment unless they are
@@ -27591,10 +27591,10 @@
 
 <epigraph>
  <cit>
-  <q><l>"And now good-morrow to our waking souls</l> 
+  <quotation><l>"And now good-morrow to our waking souls</l> 
   <l>Which watch not one another out of fear;</l> 
    <l>For love all love of other sights controls,</l> 
-   <l>And makes one little room, an everywhere."</l></q></cit>
+   <l>And makes one little room, an everywhere."</l></quotation></cit>
  <bibl>Dr DONNE.</bibl> 
 </epigraph>
      <!-- The Good-Morrow 1633-->
@@ -27867,10 +27867,10 @@
    <head>CHAPTER LXXXIV.</head>
 
    <epigraph>
-    <cit><q><l>"Though it be songe of old and yonge,</l> 
+    <cit><quotation><l>"Though it be songe of old and yonge,</l> 
     <l>That I sholde be to blame,</l> 
      <l>Theyrs be the charge, that spoke so large</l> 
-     <l>In hurtynge of my name."</l></q></cit> 
+     <l>In hurtynge of my name."</l></quotation></cit> 
     <bibl><hi rend="italic">The Not-browne Mayde.</hi></bibl> 
    </epigraph>
      <!-- 1502  Anon -->
@@ -28235,7 +28235,7 @@
      
     <epigraph> 
     <cit>
-   <q>"Then went the jury out, whose names were Mr Blindman, Mr No-good, Mr Malice, Mr Love-lust, Mr
+   <quotation>"Then went the jury out, whose names were Mr Blindman, Mr No-good, Mr Malice, Mr Love-lust, Mr
     Live-loose, Mr Heady, Mr High-mind, Mr Enmity, Mr Liar, Mr Cruelty, Mr Hate-light, Mr
     Implacable, who every one gave in his private verdict against him among themselves, and
     afterwards unanimously concluded to bring him in guilty before the judge. And first among
@@ -28246,7 +28246,7 @@
     High-mind. My heart riseth against him, said Mr Enmity. He is a rogue, said Mr Liar. Hanging is
     too good for him, said Mr Cruelty. Let us dispatch him out of the way, said Mr Hate-light. Then
     said Mr Implacable, Might I have all the world given me, I could not be reconciled to him;
-    therefore let us forthwith bring him in guilty of death."</q></cit>
+    therefore let us forthwith bring him in guilty of death."</quotation></cit>
      <bibl><hi rend="italic">Pilgrim's Progress.</hi></bibl>
     </epigraph>
      <!-- Bunyan 1678-->
@@ -28347,10 +28347,10 @@
      
 <epigraph>
 <cit>
-   <q>"Le coeur se sature d'amour comme d'un sel divin qui le conserve; de la l'ineomiptible
+   <quotation>"Le coeur se sature d'amour comme d'un sel divin qui le conserve; de la l'ineomiptible
     adherence de ceux qui se sont aimes des l'aube de la vie, et la fralcheur des vielles amours
     prolonges. Il existe un embaumement d'amour. C'est de Daphnis et Chloe que sont faits Philemon
-    et Baucis. Cette vieillesse la, ressemblance du soir avec l'aurore."</q></cit>
+    et Baucis. Cette vieillesse la, ressemblance du soir avec l'aurore."</quotation></cit>
  <l><bibl>VICTOR HUGO: <hi rend="italic">L'homme qui rit.</hi></bibl></l> 
     </epigraph>
      <!--1869-->
