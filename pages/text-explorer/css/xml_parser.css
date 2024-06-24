@@ -161,3 +161,58 @@ l {
   right: 10px;
   z-index: 1000; /* Ensure the buttons are always on top */
 }
+
+.tag-container {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex; /* Enable flexbox for the container */
+  align-items: flex-end; /* Align items to the bottom within the container */
+}
+
+.tag-list {
+  display: none; /* Initially hide the list */
+}
+
+.tag-item {
+  margin-bottom: 5px;
+}
+
+.toggle-button {
+  margin-bottom: 10px; /* Space between the button and tags */
+  align-self: flex-start; /* Align the button to the top of the container */
+}
+
+.arrow-icon {
+  transition: transform 0.5s ease; /* Smooth arrow rotation */
+}
+
+.highlight_tag {
+  background-color: rgba(144, 238, 144, 0.5); /* Light green background with 50% opacity */
+}
+.highlight_tag_name {
+  background-color: rgba(13, 110, 253, 0.5); /* Light green background with 50% opacity */
+}
+
+.highlight_tag_place {
+  background-color: rgba(42, 184, 91, 0.5); /* Light green background with 50% opacity */
+}
+
+.highlight_tag_quotation {
+  background-color: rgba(13, 202, 240, 0.5); /* Light green background with 50% opacity */
+}
+
+#button-container {
+  z-index: 1000; /* Ensure the buttons are always on top */
+}
+.btn-secondary {
+  margin-bottom: 10px; /* Adjust margin to ensure the toggle button does not overlap with the buttons */
+}
+.btn-secondary span {
+  display: inline-block;
+  width: 100%;
+}
+#toggle-button {
+  width: 30px;
+}

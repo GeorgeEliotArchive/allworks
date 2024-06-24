@@ -43,6 +43,19 @@
     <div id="voyant-tool-display" class="container"></div>
     <div id="xml-display"></div>
 
+    <div class="tag-container d-flex flex-column align-items-end">
+      <button class="btn btn-danger toggle-button" type="button">
+        <i class="arrow-icon bi bi-chevron-left"></i>Highlight
+      </button>
+      <div class="tag-list d-flex flex-column">
+        <button class="btn btn-primary btn-sm tag-item">Name</button>
+        <button class="btn btn-success btn-sm tag-item">Place</button>
+        <button class="btn btn-info btn-sm tag-item">Quotation</button>
+        <button class="btn btn-warning btn-sm tag-item">Clear</button>
+        <button class="btn btn-secondary btn-sm tag-item">Back</button>
+      </div>
+    </div>
+
     <script type="text/javascript" src="js/text_display.js"></script>
     <script>
       populateDropdown();

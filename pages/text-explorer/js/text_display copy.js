@@ -7,7 +7,6 @@ let selected_voyant = "";
 let display_voyant = false;
 let highlight_curr = "none";
 let toggle_button_display = false;
-let isTagListVisible = false; // Track the visibility state
 
 const FolderBase = "../../teiEncode/";
 const OptionToFilename = {
@@ -166,7 +165,7 @@ async function displayTEIContent(filename) {
   // `;
   // document.head.appendChild(style);
   // highlightTagText("name");
-  // document.getElementById("xml-display").appendChild(createButtons());
+  document.getElementById("xml-display").appendChild(createButtons());
 
   // reset the highlight button
   highlight_curr = "none";
@@ -505,7 +504,7 @@ function switchHighlight() {
 
 // function for highlighting the text by tag like <name>, <place>, <date>, etc.
 function highlightTagText(tag) {
-  // console.log("Highlighting tag:", tag, "current:", highlight_curr);
+  console.log("Highlighting tag:", tag, "current:", highlight_curr);
   if (highlight_curr === tag) {
     return;
   }
@@ -523,7 +522,7 @@ function highlightTagText(tag) {
 
   deactiveButton(highlight_curr);
 
-  removeHighlightTagText();
+  // removeHighlightTagText();
   highlight_curr = tag;
 
   const displayArea = document.getElementsByTagName("text")[0];
@@ -541,7 +540,7 @@ function highlightTagText(tag) {
 
   displayArea.innerHTML = highlightedContent;
 
-  // activeButton(tag);
+  activeButton(tag);
 }
 
 // Function to remove highlight from specified tag
@@ -568,6 +567,48 @@ function removeHighlightTagText() {
   // activeButton(highlight_curr);
 }
 
+// Function to create and add buttons dynamically using Bootstrap 5.3
+function createButtons() {
+  const buttonContainer = document.createElement("div");
+  buttonContainer.id = "button-container";
+  buttonContainer.className = "position-fixed top-0 end-0 p-3";
+
+  const toggleButton = initToggleButton();
+
+  const buttonGroupContainer = document.createElement("div");
+  buttonGroupContainer.className = "btn-group-vertical collapse top-2 end-0";
+  buttonGroupContainer.setAttribute("role", "group");
+  buttonGroupContainer.id = "tag-buttons";
+
+  const buttons = [
+    { label: "Hide", id: "btn_hide", action: () => displayToggleButton() },
+    { label: "No-highlight", id: "btn_none", action: () => highlightTagText("none") },
+    { label: "Name", id: "btn_name", action: () => highlightTagText("name") },
+    { label: "Place", id: "btn_place", action: () => highlightTagText("place") },
+    { label: "Quotation", id: "btn_quotation", action: () => highlightTagText("quotation") },
+  ];
+
+  buttons.forEach((button) => {
+    const btn = document.createElement("button");
+
+    if (button.label === "Hide") {
+      btn.className = "btn btn-outline-secondary";
+    } else if (button.label === "No-highlight") {
+      btn.className = "btn btn-outline-primary active";
+    } else {
+      btn.className = "btn btn-outline-primary";
+    }
+    btn.innerText = button.label;
+    btn.id = button.id;
+    btn.onclick = button.action;
+    buttonGroupContainer.appendChild(btn);
+  });
+
+  buttonContainer.appendChild(toggleButton);
+  buttonContainer.appendChild(buttonGroupContainer);
+  return buttonContainer;
+}
+
 function activeButton(tag) {
   const btn = document.getElementById(`btn_${tag}`);
   if (btn) {
@@ -581,6 +622,49 @@ function deactiveButton(tag) {
     btn.classList.remove("active");
   }
 }
+
+function initToggleButton() {
+  toggle_button_display = false;
+  const toggleButton = document.createElement("button");
+  toggleButton.className = "btn btn-outline-secondary mb-2";
+  // toggleButton.setAttribute("data-bs-toggle", "collapse");
+  // toggleButton.setAttribute("data-bs-target", "#tag-buttons");
+  // toggleButton.setAttribute("aria-expanded", "false");
+  // toggleButton.setAttribute("aria-controls", "tag-buttons");
+  toggleButton.innerHTML = "<span>&#9662;</span>"; // Down arrow icon
+  toggleButton.style.maxWidth = "40px"; // Set max width to 30px
+  toggleButton.id = "toggle-button";
+  toggleButton.onclick = toggleButtonStat;
+  return toggleButton;
+}
+
+function toggleButtonStat() {
+  const buttonGroup = document.getElementById("tag-buttons");
+  const buttonToggle = document.getElementById("toggle-button");
+
+  if (toggle_button_display === false) {
+    // buttonToggle.innerHTML = "<span>&#9652;</span>"; // Up arrow icon
+    buttonToggle.classList.add("d-none");
+    buttonGroup.classList.add("display");
+    buttonGroup.classList.remove("collapse");
+    toggle_button_display = true;
+  } else {
+    buttonToggle.innerHTML = "<span>&#9662;</span>"; // Down arrow icon
+    buttonToggle.classList.remove("d-none");
+    buttonGroup.classList.remove("display");
+    buttonGroup.classList.add("collapse");
+    toggle_button_display = false;
+  }
+}
+
+function displayToggleButton() {
+  // const buttonToggle = document.getElementById("toggle-button");
+  // buttonToggle.classList.remove("d-none");
+  toggle_button_display = true;
+  toggleButtonStat();
+}
+
+let isTagListVisible = false; // Track the visibility state
 
 function displayTagsNew() {
   const toggleButton = document.querySelector(".toggle-button");
@@ -597,7 +681,7 @@ function displayTagsNew() {
     } else {
       tagList.classList.add("d-none");
     }
-    // console.log("Tag list visibility:", isTagListVisible);
+    console.log("Tag list visibility:", isTagListVisible);
 
     arrowIcon.classList.toggle("bi-chevron-left", isTagListVisible);
     arrowIcon.classList.toggle("bi-chevron-right", !isTagListVisible);
@@ -607,11 +691,11 @@ function displayTagsNew() {
   tagItems.forEach((tag) => {
     tag.addEventListener("click", () => {
       // Your tag click handling logic here
-      // console.log(`Clicked on: ${tag.textContent}`);
+      console.log(`Clicked on: ${tag.textContent}`);
       if (tag.textContent === "Clear") {
         highlightTagText("none");
       } else if (tag.textContent === "Back") {
-        // console.log("go back to the top.");
+        console.log("go back to the top.");
         scroll_to_top_tag();
       } else {
         highlightTagText(tag.textContent.toLowerCase());
