@@ -26,7 +26,7 @@ const OptionToFilename = {
   "Daniel Deronda (1876)": "Daniel_Deronda_refine_v1",
   "Impressions of Theophrastus Such (1879)": "Impressions of Theophrastus Such",
   "All Nonfiction": "nonfiction_v2",
-  "The Spanish Gypsy": "The_Spanish_Gypsy",
+  "The Spanish Gypsy(1878)": "The_Spanish_Gypsy",
   "All Poetry Except The Spanish Gypsy": "poetry_allinone",
 };
 
