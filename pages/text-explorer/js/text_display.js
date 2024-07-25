@@ -62,7 +62,7 @@ const OptionToVoyant = {
   //   "https://voyant-tools.org/?corpus=de5b839103819a2a0bc741013bf2ea6b&view=Cirrus&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "All Nonfiction":
     "https://voyant-tools.org/?corpus=a70fb8ab1ef7192f57c653e19e75744f&view=Cirrus&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
-  "The Spanish Gypsy":
+  "The Spanish Gypsy(1878)":
     "https://voyant-tools.org/?corpus=0c45473a2790cc5bd6b28df29c43eb0e&view=Cirrus&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "All Poetry Except The Spanish Gypsy":
     "https://voyant-tools.org/?corpus=542722fd79c7fe6171fbf046d8baa84c&view=Cirrus&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
