@@ -59,7 +59,8 @@ const OptionToVoyant = {
     "https://voyant-tools.org/tool/Cirrus/?corpus=a57da0012c1dd1033963f5732904f1f4&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "Impressions of Theophrastus Such (1879)":
     "https://voyant-tools.org/tool/Cirrus/?input=https://georgeeliotarchive.org/files/original/d828ef209fb49bf45bbb2d24f58e5b74.txt&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
-  "All Fiction": "",
+  "All Fiction":
+    "https://voyant-tools.org/?corpus=467f53173e9b97d244b09161b0eb10b4&view=Cirrus&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   // "All Nonfiction":
   //   "https://voyant-tools.org/?corpus=de5b839103819a2a0bc741013bf2ea6b&view=Cirrus&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "All Nonfiction":
