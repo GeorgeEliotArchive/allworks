@@ -44,7 +44,8 @@
   /* background-color: palegoldenrod; */
   background-color: pink;
   opacity: 0.95;
-  overflow-y: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
   border: 1px solid black;
   display: none; /* initially hidden */
 }
@@ -53,16 +54,16 @@
   min-height: 30px;
 }
 #search_results {
-  position: fixed;
-  left: inherit;
-  width: inherit;
+  position: static;
+  width: 100%;
   box-sizing: border-box;
-  height: inherit;
-  max-height: inherit;
-  max-width: inherit;
+  height: auto;
+  max-height: none;
+  max-width: none;
   background-color: inherit;
-  overflow-y: scroll;
-  border: 1px solid black;
+  overflow: visible;
+  border: 0;
+  border-top: 1px solid black;
 }
 
 .search-result {

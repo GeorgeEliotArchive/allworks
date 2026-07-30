@@ -336,13 +336,8 @@ function pop_up_interactive(doc_container, displayed_results, doc_scroll_top) {
   container.style.display = "flex";
   // container.style.alignItems = "center";
   container.style.justifyContent = "space-between";
-  container.className = "position-sticky position-absolute mt-1 top-0";
-  if (displayed_results.offsetWidth < 50) {
-    // if the search results are none, set the width to 300px
-    container.style.width = 300 + "px";
-  } else {
-    container.style.width = displayed_results.offsetWidth - 26 + "px";
-  }
+  container.className = "position-sticky mt-1 top-0";
+  container.style.width = "100%";
 
   // Create a text span or div
   let textDisplay = document.createElement("span");
