@@ -207,7 +207,6 @@ function searchAndHighlight(phrase) {
   });
 
   let counter = 0;
-  let innerHTML = displayArea.innerHTML;
 
   // v1
   // // Escape any special characters in the phrase
@@ -219,55 +218,87 @@ function searchAndHighlight(phrase) {
   // const escapedPhrase = phrase.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
   // const regex = new RegExp(`((?:\\w+\\W+){0,2}\\w*)?\\b(${escapedPhrase})\\b(\\w*(?:\\W+\\w+){0,2})?`, "gi");
 
-  // v3
   const escapedPhrase = phrase.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
-  const variationPattern = `\\w*`; // This matches "ing" or "s" after the base word.
-  const regex = new RegExp(`((?:\\w+\\W+){0,3})?\\b(${escapedPhrase}${variationPattern})((?:\\W+\\w+){0,3})?`, "gi");
+  const regex = new RegExp(`\\b${escapedPhrase}\\w*`, "gi");
 
   // // v4
   // const escapedPhrase = phrase.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
   // console.log(escapedPhrase);
   // const regex = new RegExp(`((?:^|\\w+\\W+){0,3})?(${escapedPhrase})((?:\\W+\\w+){0,3})?`, "gi");
 
-  innerHTML = innerHTML.replace(regex, function (match, p1, p2, p3) {
-    // let { p1_revised, p3_revised } = reviseP1P3(p1, p3);
-    let p1_revised = revisePhrase(p1);
-    let p3_revised = revisePhrase(p3);
+  // Search only rendered text. Searching innerHTML also matches XML element names,
+  // so a query such as "Epilogue" incorrectly finds the <epilogue> tag.
+  const walker = document.createTreeWalker(displayArea, NodeFilter.SHOW_TEXT);
+  const textNodes = [];
+  while (walker.nextNode()) textNodes.push(walker.currentNode);
 
-    const id = `match-${counter++}`;
-    const id_pop = `pop-${counter++}`;
-    const resultItem = document.createElement("div");
-    resultItem.className = "search-result";
-    resultItem.innerHTML = `<span  id="${id_pop}">${p1_revised || ""}<strong>${p2}</strong>${p3_revised || ""}</span>`;
-    resultItem.addEventListener("click", () => {
-      const target = document.getElementById(id);
-      const targetPosition = target.getBoundingClientRect().top;
-      const offset = window.pageYOffset + targetPosition - window.innerHeight / 2;
-      minimize_pop();
-      window.scrollTo(0, offset);
+  textNodes.forEach((textNode) => {
+    const text = textNode.nodeValue;
+    const matches = Array.from(text.matchAll(regex));
+    if (matches.length === 0) return;
 
-      // highlight the target when scroll to it
-      const target_pop_row = document.getElementById(id_pop_row);
-      if (target_pop_row) target_pop_row.classList.remove("text-primary");
-      const target_pop = document.getElementById(id_pop);
-      target_pop.classList.add("text-primary");
-      id_pop_row = id_pop;
+    const fragment = document.createDocumentFragment();
+    let lastIndex = 0;
 
-      // displayArea.scrollTop = targetPosition;
+    matches.forEach((match) => {
+      const matchIndex = match.index;
+      const matchedText = match[0];
+      const id = `match-${counter}`;
+      const id_pop = `pop-${counter}`;
+      counter += 1;
 
-      // highlight the target when scroll to it
-      if (search_toggle !== id) {
-        if (search_toggle !== "") {
-          const old_target = document.getElementById(search_toggle);
-          if (old_target) old_target.classList.remove("jump-to");
+      fragment.appendChild(document.createTextNode(text.slice(lastIndex, matchIndex)));
+      const highlight = document.createElement("span");
+      highlight.className = "highlight";
+      highlight.id = id;
+      highlight.textContent = matchedText;
+      fragment.appendChild(highlight);
+
+      const before = text.slice(0, matchIndex).match(/(?:\S+\s+){0,3}$/)?.[0] || "";
+      const after = text.slice(matchIndex + matchedText.length).match(/^(?:\s+\S+){0,3}/)?.[0] || "";
+      const resultItem = document.createElement("div");
+      resultItem.className = "search-result";
+      const resultText = document.createElement("span");
+      resultText.id = id_pop;
+      resultText.appendChild(document.createTextNode(before));
+      const strong = document.createElement("strong");
+      strong.textContent = matchedText;
+      resultText.appendChild(strong);
+      resultText.appendChild(document.createTextNode(after));
+      resultItem.appendChild(resultText);
+      resultItem.addEventListener("click", () => {
+        const target = document.getElementById(id);
+        const targetPosition = target.getBoundingClientRect().top;
+        const offset = window.pageYOffset + targetPosition - window.innerHeight / 2;
+        minimize_pop();
+        window.scrollTo(0, offset);
+
+        // highlight the target when scroll to it
+        const target_pop_row = document.getElementById(id_pop_row);
+        if (target_pop_row) target_pop_row.classList.remove("text-primary");
+        const target_pop = document.getElementById(id_pop);
+        target_pop.classList.add("text-primary");
+        id_pop_row = id_pop;
+
+        // displayArea.scrollTop = targetPosition;
+
+        // highlight the target when scroll to it
+        if (search_toggle !== id) {
+          if (search_toggle !== "") {
+            const old_target = document.getElementById(search_toggle);
+            if (old_target) old_target.classList.remove("jump-to");
+          }
+          search_toggle = id;
+          target.classList.add("jump-to");
         }
-        search_toggle = id;
-        target.classList.add("jump-to");
-      }
-      // search_results.classList.add("minimized");
+        // search_results.classList.add("minimized");
+      });
+      searchResults.appendChild(resultItem);
+      lastIndex = matchIndex + matchedText.length;
     });
-    searchResults.appendChild(resultItem);
-    return `${p1 || ""}<span class="highlight" id="${id}">${p2}</span>${p3 || ""}`;
+
+    fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+    textNode.parentNode.replaceChild(fragment, textNode);
   });
 
   searchContainer.appendChild(searchResults);
@@ -278,8 +309,6 @@ function searchAndHighlight(phrase) {
   pop_up_interactive(searchContainer, searchResults, searchInput);
 
   draggable_div(searchContainer);
-
-  displayArea.innerHTML = innerHTML;
 }
 
 function pop_up_interactive(doc_container, displayed_results, doc_scroll_top) {
