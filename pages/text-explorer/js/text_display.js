@@ -267,7 +267,26 @@ function searchAndHighlight(phrase) {
       resultText.appendChild(document.createTextNode(after));
       resultItem.appendChild(resultText);
       resultItem.addEventListener("click", () => {
-        const target = document.getElementById(id);
+        let target = document.getElementById(id);
+
+        // Table-of-contents entries link to semantic sections such as
+        // <epilogue> or <div xml:id="finale">. Jump to that section instead
+        // of stopping at the entry in the contents.
+        const reference = target.closest("ref[target]");
+        if (reference) {
+          const referenceTarget = reference.getAttribute("target");
+          if (referenceTarget && referenceTarget.startsWith("#")) {
+            const targetName = referenceTarget.slice(1);
+            const xmlIdTarget = Array.from(displayArea.querySelectorAll("[xml\\:id]")).find(
+              (element) => element.getAttribute("xml:id") === targetName,
+            );
+            const tagTarget = displayArea.getElementsByTagName(targetName)[0];
+            target = xmlIdTarget || tagTarget || target;
+          }
+        }
+
+        if (!target.id) target.id = `jump-${id}`;
+        const targetId = target.id;
         const targetPosition = target.getBoundingClientRect().top;
         const offset = window.pageYOffset + targetPosition - window.innerHeight / 2;
         minimize_pop();
@@ -283,12 +302,12 @@ function searchAndHighlight(phrase) {
         // displayArea.scrollTop = targetPosition;
 
         // highlight the target when scroll to it
-        if (search_toggle !== id) {
+        if (search_toggle !== targetId) {
           if (search_toggle !== "") {
             const old_target = document.getElementById(search_toggle);
             if (old_target) old_target.classList.remove("jump-to");
           }
-          search_toggle = id;
+          search_toggle = targetId;
           target.classList.add("jump-to");
         }
         // search_results.classList.add("minimized");
