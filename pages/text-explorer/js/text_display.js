@@ -205,9 +205,10 @@ function searchAndHighlight(phrase) {
     }
     parent.removeChild(span);
   });
-
+  //merge adjacent text nodes created by the previous search
+  displayArea.normalize();
   let counter = 0;
-
+  
   // v1
   // // Escape any special characters in the phrase
   // const escapedPhrase = phrase.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
