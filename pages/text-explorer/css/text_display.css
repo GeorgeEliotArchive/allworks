@@ -55,11 +55,11 @@
 }
 #search_results {
   position: static;
-  width: 100%;
+  width: min(420px, calc(100vw - 2rem));
   box-sizing: border-box;
   height: auto;
   max-height: calc(70vh - 60px);
-  max-width: none;
+  max-width: 100%;
   background-color: inherit;
   overflow-y: auto;
   overflow-x: hidden;
