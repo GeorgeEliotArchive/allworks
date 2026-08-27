@@ -402,6 +402,12 @@ function offset(el) {
 }
 
 function draggable_div(doc_drag) {
+  //prevent duplicate event binding
+  if (doc_drag.dataset.draggableInitialized === "true") {
+    return;
+  }
+  doc_drag.dataset.draggableInitialized = "true";
+
   // Variables to hold mouse x and y position
   let mouseX = 0,
     mouseY = 0,
@@ -430,6 +436,46 @@ function draggable_div(doc_drag) {
     document.removeEventListener("mousemove", onMouseMove);
     document.removeEventListener("mouseup", onMouseUp);
   }
+
+  //mobile device suport
+  doc_drag.addEventListener("touchstart", function (e) {
+    // when using finger on mobile devices
+    if (
+      e.target.closest("#search_results") ||
+      e.target.closest("button") ||
+      e.target.closest("input") ||
+      e.target.closest("select")
+    ) {
+      return;
+    }
+    if(e.touches.length !== 1) {
+      return;
+    }
+    const touch = e.touches[0];
+    elementX = doc_drag.offsetLeft - touch.clientX;
+    elementY = doc_drag.offsetTop - touch.clientY;
+
+    document.addEventListener("touchmove", onTouchMove, { passive: false });
+    document.addEventListener("touchend", onTouchEnd);
+    document.addEventListener("touchcancel", onTouchEnd);
+  },
+  { passive: true }
+);
+function onTouchMove(e) {
+  if (e.touches.length !== 1) {
+    return;
+  }
+  e.preventDefault();
+  const touch = e.touches[0];
+  doc_drag.style.left = touch.clientX + elementX + "px";
+  doc_drag.style.top = touch.clientY + elementY + "px";
+}
+function onTouchEnd() {
+  document.removeEventListener("touchmove", onTouchMove);
+  document.removeEventListener("touchend", onTouchEnd);
+  document.removeEventListener("touchcancel", onTouchEnd);
+}
+
 }
 
 function xmlToHtml(xmlNode) {
