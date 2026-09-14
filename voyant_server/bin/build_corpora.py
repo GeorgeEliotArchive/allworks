@@ -26,12 +26,14 @@ the same file again would mint a *new* corpus id, so avoid that unless needed
 import argparse
 import hashlib
 import json
+import re
 import subprocess
 import sys
-import urllib.parse
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+SETTINGS = ROOT / "server-settings.txt"
+VOYANT_SH = ROOT / "bin" / "voyant.sh"
 TEI_DIR = ROOT.parent / "teiEncode"
 STOPLIST_FILE = ROOT / "stoplists" / "eliot_stopwords.txt"
 
@@ -91,6 +93,48 @@ def curl_json(url, *args, timeout=900):
         return json.loads(out.stdout)
     except json.JSONDecodeError:
         sys.exit(f"non-JSON reply from {url}:\n{out.stdout[:500]}")
+
+
+def input_allowed():
+    m = re.search(r"(?m)^allow_input\s*=\s*(\S+)", SETTINGS.read_text(encoding="utf-8"))
+    return not m or m.group(1).lower() == "true"
+
+
+def set_allow_input(value):
+    txt = SETTINGS.read_text(encoding="utf-8")
+    txt = re.sub(r"(?m)^allow_input\s*=.*$", f"allow_input = {'true' if value else 'false'}", txt)
+    SETTINGS.write_text(txt, encoding="utf-8")
+
+
+def restart_server():
+    r = subprocess.run(["bash", str(VOYANT_SH), "restart"], capture_output=True, text=True)
+    if r.returncode != 0:
+        sys.exit(f"server restart failed:\n{r.stdout}{r.stderr}")
+
+
+class Maintenance:
+    """Temporarily allow input on the (public) server while corpora are rebuilt.
+
+    allow_input=false is the main protection against strangers creating corpora, so
+    it is only lifted for the duration of the build and restored even on errors.
+    Only used for a local server (127.0.0.1 / localhost); a remote --server is left alone.
+    """
+
+    def __init__(self, server, enabled):
+        self.active = enabled and not input_allowed() and re.match(r"https?://(127\.0\.0\.1|localhost)[:/]", server)
+
+    def __enter__(self):
+        if self.active:
+            print("maintenance: allow_input=true + restart (input is re-disabled at the end)")
+            set_allow_input(True)
+            restart_server()
+        return self
+
+    def __exit__(self, *exc):
+        if self.active:
+            set_allow_input(False)
+            restart_server()
+            print("maintenance: allow_input=false restored + restarted")
 
 
 def check_server(server):
@@ -168,6 +212,8 @@ def main():
                     help="base URL written into voyant_urls.generated.js (default: --server)")
     ap.add_argument("--only", action="append", help="build only this label (repeatable)")
     ap.add_argument("--force", action="store_true", help="rebuild even if files are unchanged")
+    ap.add_argument("--no-maintenance", action="store_true",
+                    help="do not toggle allow_input/restart the server (assumes input is already allowed)")
     a = ap.parse_args()
     server = a.server.rstrip("/")
     public_base = (a.public_base or server).rstrip("/")
@@ -180,6 +226,7 @@ def main():
         existing = json.loads((ROOT / "corpora.json").read_text(encoding="utf-8"))
 
     results = dict(existing)
+    todo = {}
     for label, files in CORPORA.items():
         if a.only and label not in a.only:
             continue
@@ -189,10 +236,17 @@ def main():
                 and corpus_exists(server, prev["id"])):
             print(f"unchanged {label!r}: corpus={prev['id']}")
             continue
-        print(f"building {label!r} from {len(files)} file(s) ...", end=" ", flush=True)
-        cid, docs, tokens = create_corpus(server, files)
-        results[label] = {"id": cid, "files": files, "documents": docs, "tokens": tokens, "sha256": fh}
-        print(f"corpus={cid} docs={docs} tokens={tokens:,}")
+        todo[label] = (files, fh)
+
+    if todo:
+        with Maintenance(server, enabled=not a.no_maintenance):
+            for label, (files, fh) in todo.items():
+                print(f"building {label!r} from {len(files)} file(s) ...", end=" ", flush=True)
+                cid, docs, tokens = create_corpus(server, files)
+                results[label] = {"id": cid, "files": files, "documents": docs, "tokens": tokens, "sha256": fh}
+                print(f"corpus={cid} docs={docs} tokens={tokens:,}")
+    else:
+        print("nothing to build (all corpora unchanged); server left untouched")
 
     # keep the label order of CORPORA
     results = {k: results[k] for k in CORPORA if k in results}

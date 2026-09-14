@@ -20,7 +20,7 @@ const OptionToVoyant = {
   "Romola (1863)":
     VOYANT_BASE + "/tool/Cirrus/?corpus=d393dc2327f985bdc75ebe948b3809e8&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "Brother Jacob (1864)":
-    VOYANT_BASE + "/tool/Cirrus/?corpus=4ffd68ba139530f9074ea27214cc788c&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+    VOYANT_BASE + "/tool/Cirrus/?corpus=71182174980d4bea97f433e13b05bc9d&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "Felix Holt, the Radical (1866)":
     VOYANT_BASE + "/tool/Cirrus/?corpus=48a28aea0c8a3ca30612acedbea2ab4b&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "Middlemarch (1871-72)":

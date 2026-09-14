@@ -95,6 +95,10 @@ cmd_start() {
 }
 
 cmd_stop() {
+  if [ -f "$PLIST" ] && launchctl print "gui/$(id -u)/$LABEL" >/dev/null 2>&1; then
+    echo "Server is managed by launchd (KeepAlive). Use 'restart', or 'uninstall-service' to stop it for good." >&2
+    return 1
+  fi
   local pid; pid="$(pid_of_server)"
   if [ -z "$pid" ]; then echo "Not running."; rm -f "$PIDFILE"; return 0; fi
   kill "$pid" 2>/dev/null || true
@@ -132,7 +136,14 @@ case "${1:-}" in
   run) cmd_run ;;
   start) cmd_start ;;
   stop) cmd_stop ;;
-  restart) cmd_stop; cmd_start ;;
+  restart)
+    if [ -f "$PLIST" ] && launchctl print "gui/$(id -u)/$LABEL" >/dev/null 2>&1; then
+      launchctl kickstart -k "gui/$(id -u)/$LABEL"   # launchd owns the process; -k kills and restarts it
+      for _ in $(seq 1 60); do healthy && break; sleep 1; done
+      cmd_status
+    else
+      cmd_stop; cmd_start
+    fi ;;
   status) cmd_status ;;
   logs) tail -n 50 -f "$LOG" ;;
   install-service) cmd_install_service ;;

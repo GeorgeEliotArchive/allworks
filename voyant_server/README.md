@@ -121,6 +121,27 @@ For local testing without the tunnel, generate with `--public-base http://127.0.
 and open the page from a local `http://` server (`python3 -m http.server 8000` in the
 repo root, then `http://localhost:8000/pages/text-explorer/`).
 
+## Security: public server, input disabled
+
+`https://voyant.fishee.org` is reachable by anyone, so the server runs with
+`allow_input = false` and `allow_download = false` (see `server-settings.txt`):
+
+* nobody can create corpora from pasted text, URLs or uploads, or save Spyral notebooks
+  (verified: the requests return an empty reply and nothing is written to `data/`);
+* existing corpora, the Cirrus pages and all read-only tool calls keep working;
+* the Documents panel hides the download/modify buttons.
+
+`bin/build_corpora.py` handles this automatically: when something needs rebuilding it
+switches `allow_input` to true, restarts the server, uploads, then switches it back and
+restarts again (about 10 s each), even if the build fails. When all corpora are unchanged
+the server is not touched. Stored stoplists (`resource.StoredResource`) are still
+accepted; they are small text blobs and needed by Voyant's stoplist editor.
+
+Further hardening that is *not* set up yet: Cloudflare WAF rules blocking
+`CorpusCreator`/`StoredResource`/`notebook` in the query and `/spyral/*`, Bot Fight
+Mode, and a rate-limit rule. Do not enable challenge pages ("Under Attack" mode):
+they cannot render inside the iframe.
+
 ## Corpora
 
 | Label in Text Explorer | Source in `teiEncode/` |
@@ -156,7 +177,9 @@ stoplist survive upgrades (Voyant migrates older data formats itself).
 ## Troubleshooting
 
 * `bin/voyant.sh status` shows pid, HTTP health and launchd state; `bin/voyant.sh logs` tails the log.
-* "Port 8888 appears to be in use": `bin/voyant.sh stop`, or `pkill -f JettyRunTime`.
+* While the launchd agent is installed, `bin/voyant.sh stop` refuses (launchd would restart it at once);
+  use `bin/voyant.sh restart`, or `bin/voyant.sh uninstall-service` to stop it for good.
+* "Port 8888 appears to be in use": `bin/voyant.sh restart`, or `pkill -f JettyRunTime`.
 * OutOfMemoryError in the log: lower `memory` in `server-settings.txt` and restart.
 * Java errors mentioning `sun.security.action` or modules mean a Java newer than 11 is being used;
   set `VOYANT_JAVA=/opt/homebrew/opt/openjdk@11/bin/java`.
