@@ -1,0 +1,31 @@
+### Settings for the George Eliot Archive local VoyantServer ###
+# This file is copied over dist/VoyantServer*/server-settings.txt by bin/voyant.sh
+# so the GUI launcher (java -jar VoyantServer.jar) picks up the same values as
+# the headless launchd service. See README.md.
+
+# HTTP port of the Voyant web app.
+port = 8888
+
+# JVM heap in MB. The Mac mini has 16 GB; 3 GB is plenty for the full Eliot corpus.
+memory = 3072
+
+# Persistent data directory (corpora, stored stoplists, local sources).
+# Must be an absolute path. bin/voyant.sh passes the same directory to the JVM.
+data_directory = /Users/libo/Dev/allworks/voyant_server/data
+
+context_path = /
+query_parameters =
+
+# Leave host commented out so the server is reachable from other machines on
+# the LAN (and from a tunnel). Uncomment to restrict to this machine only.
+# host = 127.0.0.1
+
+logs_file =
+
+# Corpora offered in the "Open" menu on the Voyant landing page. bin/build_corpora.py
+# prints an up-to-date value for this line after it has built the Eliot corpora.
+open_menu = 8ac0432296676f93e04e27fa311572d6:Mr. Gilfil's Love Story (1857);0575656ba58f8fd6b94ccd50304d78a4:Janet's Repentance (1857);6bbe068d2ed887ac563ae9f9ce59e1e4:The Sad Fortunes of the Rev. Amos Barton (1857);5d06f504b20a8eef95d5c7666fcefa53:Adam Bede (1859);492ae05a96f04b0e07b89140ec73678b:The Lifted Veil (1859);41371bc0e28d8cf1f675f47e9a5c6a0f:The Mill on the Floss (1860);abed769f964856ae953d168bdc594d58:Silas Marner (1861);d393dc2327f985bdc75ebe948b3809e8:Romola (1863);4ffd68ba139530f9074ea27214cc788c:Brother Jacob (1864);48a28aea0c8a3ca30612acedbea2ab4b:Felix Holt, the Radical (1866);e66ca6ddfdfb5b6bdb1247553c0b91b6:Middlemarch (1871-72);df845f097563eb333ace24e514a236b7:Daniel Deronda (1876);3eaffbc5b9ac83885210753c563801b2:Impressions of Theophrastus Such (1879);989b84c85a4a52a0261ed896533852c0:All Fiction;3f4878c8f2cfc3aa951349b2c3203818:All Nonfiction;e559c2d715a542f35bccef547f247f80:The Spanish Gypsy (1868);e0e71c4d489d423374d9779d254daa91:All Poetry Except The Spanish Gypsy
+
+allow_input = true
+allow_download = true
+allow_private_ip = true

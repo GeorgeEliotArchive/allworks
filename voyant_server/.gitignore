@@ -1,0 +1,8 @@
+# Large / machine-specific artefacts of the local Voyant server. Only scripts,
+# configuration and the generated corpus mapping are tracked.
+dist/
+data/
+logs/
+*.zip
+.DS_Store
+__pycache__/

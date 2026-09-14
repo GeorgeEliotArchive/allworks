@@ -1,0 +1,167 @@
+{
+  "Mr. Gilfil's Love Story (1857)": {
+    "id": "8ac0432296676f93e04e27fa311572d6",
+    "files": [
+      "Mr.Gilfil's Love Story.xml"
+    ],
+    "documents": 1,
+    "tokens": 49738,
+    "sha256": "3781adcd1b94453198c3c87099f54b9d5008e2168f1bdb13b63e4353e03460a0"
+  },
+  "Janet's Repentance (1857)": {
+    "id": "0575656ba58f8fd6b94ccd50304d78a4",
+    "files": [
+      "Janet's Repentance.xml"
+    ],
+    "documents": 1,
+    "tokens": 67096,
+    "sha256": "dd72aa410dfdd9ddb912f8ac9f84411d59ad88f2e915f392384b979cc13c0a82"
+  },
+  "The Sad Fortunes of the Rev. Amos Barton (1857)": {
+    "id": "6bbe068d2ed887ac563ae9f9ce59e1e4",
+    "files": [
+      "The Sad Fortunes of the Reverend Amos Barton.xml"
+    ],
+    "documents": 1,
+    "tokens": 29353,
+    "sha256": "7ce1a91444f6b3f899081bfb29bf3c1f943a3c53e35fa0d0a82cdbc363b404b7"
+  },
+  "Adam Bede (1859)": {
+    "id": "5d06f504b20a8eef95d5c7666fcefa53",
+    "files": [
+      "Adam Bede_refine_v1.1.xml"
+    ],
+    "documents": 1,
+    "tokens": 217556,
+    "sha256": "bc4ba240f280caa5c2a63e95f1902c9d539559e3b74840516ab6b4f3fb462944"
+  },
+  "The Lifted Veil (1859)": {
+    "id": "492ae05a96f04b0e07b89140ec73678b",
+    "files": [
+      "The Lifted Veil.xml"
+    ],
+    "documents": 1,
+    "tokens": 17868,
+    "sha256": "a037d60803ff32554dc578d7465ee99aef521625bdf4063215016b7ae4bb3bfa"
+  },
+  "The Mill on the Floss (1860)": {
+    "id": "41371bc0e28d8cf1f675f47e9a5c6a0f",
+    "files": [
+      "The Mill on the Floss.xml"
+    ],
+    "documents": 1,
+    "tokens": 209837,
+    "sha256": "49a98be44816786ba8c7292cae72083cbf358b39be40311749a7adccab73bd6f"
+  },
+  "Silas Marner (1861)": {
+    "id": "abed769f964856ae953d168bdc594d58",
+    "files": [
+      "Silas Marner.xml"
+    ],
+    "documents": 1,
+    "tokens": 72408,
+    "sha256": "71e195f583d2720853ad8ae19a59951d55b5b63e19dbcc0a407d8ab1669fc56b"
+  },
+  "Romola (1863)": {
+    "id": "d393dc2327f985bdc75ebe948b3809e8",
+    "files": [
+      "Romola_refine_v1.xml"
+    ],
+    "documents": 1,
+    "tokens": 224706,
+    "sha256": "7faffe191af28d56d6c61ee10a5e1dbaa0350c50c33ee500ba9138b606f7210c"
+  },
+  "Brother Jacob (1864)": {
+    "id": "4ffd68ba139530f9074ea27214cc788c",
+    "files": [
+      "Brother Jacob_refine_v1.xml"
+    ],
+    "documents": 1,
+    "tokens": 16901,
+    "sha256": "24f94e1d3fb5ec0b629ec000c63202949bbaf6b74aca0cdef7991a9a26e73f84"
+  },
+  "Felix Holt, the Radical (1866)": {
+    "id": "48a28aea0c8a3ca30612acedbea2ab4b",
+    "files": [
+      "Felix Holt, the Radical_refine_v1.xml"
+    ],
+    "documents": 1,
+    "tokens": 180850,
+    "sha256": "81357fa921b848f0f2addcd260dc0258f2cde45ac482d03d55fdb8f3156926f0"
+  },
+  "Middlemarch (1871-72)": {
+    "id": "e66ca6ddfdfb5b6bdb1247553c0b91b6",
+    "files": [
+      "Middlemarch_refine_v1.xml"
+    ],
+    "documents": 1,
+    "tokens": 320952,
+    "sha256": "e979db55b94aa1d561ecdcb61e9d30e98ba93880dcb4704600c7ae01e2da6125"
+  },
+  "Daniel Deronda (1876)": {
+    "id": "df845f097563eb333ace24e514a236b7",
+    "files": [
+      "Daniel_Deronda_refine_v1.xml"
+    ],
+    "documents": 1,
+    "tokens": 314073,
+    "sha256": "1f75383384027c072c36cd2150dd4a6f02a1fb98f91d32fc5458d03ad89e6dfd"
+  },
+  "Impressions of Theophrastus Such (1879)": {
+    "id": "3eaffbc5b9ac83885210753c563801b2",
+    "files": [
+      "Impressions of Theophrastus Such.xml"
+    ],
+    "documents": 1,
+    "tokens": 58674,
+    "sha256": "1523c1099b0e44186917ac8ca175ccb479ba25dd3a1bdeb009ca0a4615257f32"
+  },
+  "All Fiction": {
+    "id": "989b84c85a4a52a0261ed896533852c0",
+    "files": [
+      "The Sad Fortunes of the Reverend Amos Barton.xml",
+      "Mr.Gilfil's Love Story.xml",
+      "Janet's Repentance.xml",
+      "Adam Bede_refine_v1.1.xml",
+      "The Lifted Veil.xml",
+      "The Mill on the Floss.xml",
+      "Silas Marner.xml",
+      "Romola_refine_v1.xml",
+      "Brother Jacob_refine_v1.xml",
+      "Felix Holt, the Radical_refine_v1.xml",
+      "Middlemarch_refine_v1.xml",
+      "Daniel_Deronda_refine_v1.xml",
+      "Impressions of Theophrastus Such.xml"
+    ],
+    "documents": 13,
+    "tokens": 1780012,
+    "sha256": "c4a744ccfc3d7b2bcb77192efed002bfb3a9dbc441dc7b76fae5bab6221e1463"
+  },
+  "All Nonfiction": {
+    "id": "3f4878c8f2cfc3aa951349b2c3203818",
+    "files": [
+      "nonfiction_v2.xml"
+    ],
+    "documents": 1,
+    "tokens": 427324,
+    "sha256": "35b9872eefa661cdecd684488b5686a55e4ab456fc51a8570769188a4733d76f"
+  },
+  "The Spanish Gypsy (1868)": {
+    "id": "e559c2d715a542f35bccef547f247f80",
+    "files": [
+      "The_Spanish_Gypsy.xml"
+    ],
+    "documents": 1,
+    "tokens": 59143,
+    "sha256": "cd3369a6a628e8dd089e4329ee79364018de757151de8488d7bee2941b91bdde"
+  },
+  "All Poetry Except The Spanish Gypsy": {
+    "id": "e0e71c4d489d423374d9779d254daa91",
+    "files": [
+      "poetry_allinone.xml"
+    ],
+    "documents": 1,
+    "tokens": 38193,
+    "sha256": "540a66ba0dfbbc197e5b8734ff260fc84424c36e5cc1501fc35a05a955b5890f"
+  }
+}

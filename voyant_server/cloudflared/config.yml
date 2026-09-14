@@ -1,0 +1,14 @@
+# Cloudflare Tunnel "ge-voyant": exposes the local VoyantServer as https://voyant.fishee.org
+# Credentials live outside the repo in ~/.cloudflared/<tunnel-id>.json (created by
+# `cloudflared tunnel create ge-voyant`). Run/stop via bin/tunnel.sh.
+tunnel: 702d1eff-c727-46d5-9aa3-e623677f74ef
+credentials-file: /Users/libo/.cloudflared/702d1eff-c727-46d5-9aa3-e623677f74ef.json
+no-autoupdate: true
+
+ingress:
+  - hostname: voyant.fishee.org
+    service: http://localhost:8888
+    originRequest:
+      connectTimeout: 30s
+      noTLSVerify: true
+  - service: http_status:404
