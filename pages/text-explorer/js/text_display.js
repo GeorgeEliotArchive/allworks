@@ -386,6 +386,52 @@ function buildGroupStats(entries) {
   return groups;
 }
 
+// Inline TEI elements that sit inside a paragraph or line. Context snippets
+// are allowed to cross these so that a hit inside <quotation> or next to a
+// <name> still shows the surrounding words of the paragraph.
+const CONTEXT_INLINE_TAGS = new Set([
+  "name", "place", "quotation", "em", "hi", "ref", "span", "date", "title", "speaker", "pb", "ptr",
+]);
+const CONTEXT_WORDS = 5;
+
+// Nearest ancestor that is not an inline element: the paragraph, line, head, etc.
+function contextRoot(textNode) {
+  let el = textNode.parentElement;
+  while (el && el.parentElement && CONTEXT_INLINE_TAGS.has(el.tagName.toLowerCase())) {
+    el = el.parentElement;
+  }
+  return el;
+}
+
+// Text of the sibling text nodes before (direction -1) or after (direction 1)
+// `textNode` inside `root`, collected until at least `minWords` words are available.
+function neighborText(root, textNode, direction, minWords) {
+  if (!root) return "";
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  walker.currentNode = textNode;
+  let collected = "";
+  while (countWords(collected) < minWords) {
+    const next = direction < 0 ? walker.previousNode() : walker.nextNode();
+    if (!next) break;
+    collected = direction < 0 ? next.nodeValue + collected : collected + next.nodeValue;
+  }
+  return collected;
+}
+
+// Up to CONTEXT_WORDS words on each side of a match. Characters attached
+// directly to the match (an apostrophe, a comma, a closing quote) are kept
+// with it instead of cutting the snippet short.
+function buildMatchContext(textNode, text, matchIndex, matchLength) {
+  const root = contextRoot(textNode);
+  const beforeSource = neighborText(root, textNode, -1, CONTEXT_WORDS + 1) + text.slice(0, matchIndex);
+  const afterSource = text.slice(matchIndex + matchLength) + neighborText(root, textNode, 1, CONTEXT_WORDS + 1);
+  const beforeRe = new RegExp(`(?:\\S+\\s+){0,${CONTEXT_WORDS}}\\S*$`);
+  const afterRe = new RegExp(`^\\S*(?:\\s+\\S+){0,${CONTEXT_WORDS}}`);
+  const before = (beforeSource.match(beforeRe)?.[0] || "").replace(/\s+/g, " ").replace(/^ /, "");
+  const after = (afterSource.match(afterRe)?.[0] || "").replace(/\s+/g, " ").replace(/ $/, "");
+  return { before, after };
+}
+
 function highlightMatches(entries, groupStats, regex) {
   const matches = [];
   let counter = 0;
@@ -418,8 +464,7 @@ function highlightMatches(entries, groupStats, regex) {
       highlight.textContent = matchedText;
       fragment.appendChild(highlight);
 
-      const before = text.slice(0, matchIndex).match(/(?:\S+\s+){0,5}$/)?.[0] || "";
-      const after = text.slice(matchIndex + matchedText.length).match(/^(?:\s+\S+){0,5}/)?.[0] || "";
+      const { before, after } = buildMatchContext(textNode, text, matchIndex, matchedText.length);
       const wordsBefore = countWords(text.slice(0, matchIndex));
       const absoluteWordPosition = group.runningWords + wordsBefore;
       const relativePosition = group.wordCount > 0 ? absoluteWordPosition / group.wordCount : 0;
