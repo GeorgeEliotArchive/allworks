@@ -9,7 +9,14 @@ let highlight_curr = "none";
 let toggle_button_display = false;
 let isTagListVisible = false; // Track the visibility state
 
-const FolderBase = "../../teiEncode/";
+// Search lifecycle state. A token prevents an older/slow search from overwriting
+// a newer one, which is especially important on mobile devices.
+let activeSearchRun = 0;
+let activeContentLoad = 0;
+let activeGroupStats = new Map();
+
+// GitHub Pages repository layout: /index.html + /teiEncode/
+const FolderBase = "./teiEncode/";
 const OptionToFilename = {
   "Search a text to explore": "default_page",
   "Mr. Gilfil's Love Story (1857)": "Mr.Gilfil's Love Story",
@@ -117,6 +124,7 @@ function populateDropdown() {
 }
 
 async function displayTEIContent(filename) {
+  const loadId = ++activeContentLoad;
   let relativePath = FolderBase + filename + ".xml";
 
   try {
@@ -130,6 +138,7 @@ async function displayTEIContent(filename) {
 
     // Get the XML text from the response
     const xmlText = await response.text();
+    if (loadId !== activeContentLoad) return;
 
     // Use DOMParser to parse the XML text
     const parser = new DOMParser();
@@ -142,7 +151,10 @@ async function displayTEIContent(filename) {
     let serializedXml = serializer.serializeToString(xmlDoc);
     // Escape the XML string
 
-    document.getElementById("xml-display").innerHTML = escapeXml(serializedXml);
+    const display = document.getElementById("xml-display");
+    if (loadId !== activeContentLoad) return;
+    display.innerHTML = escapeXml(serializedXml);
+    annotateCorpusStructure(xmlDoc, display);
   } catch (error) {
     console.error("Error fetching or parsing XML:", error);
   }
@@ -175,76 +187,227 @@ async function displayTEIContent(filename) {
   toggle_button_display = false;
 }
 
-function searchAndHighlight(phrase) {
+function annotateCorpusStructure(xmlDoc, displayArea) {
+  // HTML fragment parsing treats TEI <head> as the HTML <head> element and can
+  // drop that tag. Preserve the work titles from the parsed XML before search.
+  const xmlDivs = Array.from(xmlDoc.getElementsByTagNameNS("*", "div")).filter(
+    (element) => element.getAttribute("type") === "work",
+  );
+  const renderedWorks = Array.from(displayArea.querySelectorAll('div[type="work"]'));
+
+  renderedWorks.forEach((work, index) => {
+    const xmlWork = xmlDivs[index];
+    let title = "";
+    if (xmlWork) {
+      const head = Array.from(xmlWork.children).find((child) => child.localName === "head");
+      title = head ? head.textContent : "";
+    }
+    work.dataset.searchGroupKey = `fiction-${index}`;
+    work.dataset.searchTitle = cleanGroupTitle(title, `Untitled work ${index + 1}`);
+  });
+
+  Array.from(displayArea.querySelectorAll("teisubtitle")).forEach((subtitle, index) => {
+    subtitle.dataset.searchGroupKey = `nonfiction-${index}`;
+    subtitle.dataset.searchTitle = cleanGroupTitle(subtitle.textContent, `Untitled work ${index + 1}`);
+  });
+}
+
+async function searchAndHighlight(phrase) {
+  const runId = ++activeSearchRun;
+
   if (phrase === "" || isOnlyWhitespace(phrase) === true) {
     hide_search_container();
     return;
   }
-  // const displayArea = document.getElementById("xml-display");
-  const displayArea = document.getElementsByTagName("text")[0];
 
-  const searchResults = document.getElementById("search_results");
+  const displayArea = document.getElementsByTagName("text")[0];
+  if (!displayArea) return;
+
   const searchContainer = document.getElementById("search_container");
   const searchInput = document.getElementById("search_input");
 
-  searchContainer.innerHTML = ""; // Clear previous search results
-  searchContainer.classList.remove("minimized");
-
-  searchResults.innerHTML = "";
-  searchResults.classList.remove("minimized");
-
+  clearSearchHighlights(displayArea);
+  search_toggle = "";
+  id_pop_row = "";
   search_minimized = false;
+  searchContainer.classList.remove("minimized");
+  searchContainer.classList.toggle("corpus-search", isCorpusSelection());
+  searchContainer.replaceChildren();
 
-  // First, remove existing highlights
+  // Paint the panel immediately. On large corpora, building thousands of DOM
+  // nodes can take noticeable time on phones; this prevents an apparently
+  // empty/frozen result window.
+  const panelBody = document.createElement("div");
+  panelBody.className = "search-panel-body";
+  const loading = document.createElement("div");
+  loading.className = "search-loading";
+  loading.textContent = "Searching…";
+  panelBody.appendChild(loading);
+  searchContainer.appendChild(panelBody);
+  addSearchPanelHeader(searchContainer, panelBody, "Searching…", searchInput);
+  searchContainer.style.display = "block";
+  draggable_div(searchContainer);
+  clampSearchPanelToViewport(searchContainer);
+
+  // Give the browser a chance to display the loading state before doing the
+  // corpus work. Two frames is more reliable in mobile Safari.
+  await nextPaint();
+  await nextPaint();
+  if (runId !== activeSearchRun) return;
+
+  const escapedPhrase = phrase.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+  // Preserve the current Text Explorer behavior: a search for "friend"
+  // also finds words such as "friendly" and "friendship".
+  const regex = new RegExp(`\\b${escapedPhrase}\\w*`, "gi");
+
+  const nodeEntries = collectSearchableTextNodes(displayArea);
+  const groupStats = buildGroupStats(nodeEntries);
+  const matches = highlightMatches(nodeEntries, groupStats, regex);
+  if (runId !== activeSearchRun) return;
+
+  activeGroupStats = groupStats;
+
+  const fragment = document.createDocumentFragment();
+  const analytics = buildSearchAnalytics(matches, groupStats, phrase);
+  if (analytics) fragment.appendChild(analytics);
+  const searchResults = buildSearchResults(matches, groupStats);
+  fragment.appendChild(searchResults);
+
+  panelBody.replaceChildren(fragment);
+  const resultCount = searchContainer.querySelector(".search-result-count");
+  if (resultCount) resultCount.textContent = `${matches.length} results`;
+
+  // Start rendering the first open corpus group after the main panel is on
+  // screen. Remaining groups render only when opened.
+  if (isCorpusSelection()) {
+    requestAnimationFrame(() => {
+      const openGroup = searchResults.querySelector(".work-result-group[open]");
+      if (openGroup) ensureGroupResultsRendered(openGroup, false);
+    });
+  }
+}
+
+function nextPaint() {
+  return new Promise((resolve) => requestAnimationFrame(() => resolve()));
+}
+
+function isCorpusSelection() {
+  return selected_current === "All Fiction" || selected_current === "All Nonfiction";
+}
+
+function clearSearchHighlights(displayArea) {
   const highlighted = Array.from(displayArea.querySelectorAll(".highlight"));
   highlighted.forEach((span) => {
     const parent = span.parentNode;
-    while (span.firstChild) {
-      parent.insertBefore(span.firstChild, span);
-    }
+    while (span.firstChild) parent.insertBefore(span.firstChild, span);
     parent.removeChild(span);
   });
-  //merge adjacent text nodes created by the previous search
   displayArea.normalize();
-  let counter = 0;
-  
-  // v1
-  // // Escape any special characters in the phrase
-  // const escapedPhrase = phrase.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
-  // // Adding word boundaries to the regex
-  // const regex = new RegExp(`((?:\\w+\\W+){0,3}\\w*)?\\b(${escapedPhrase})\\b(\\w*(?:\\W+\\w+){0,3})?`, "gi");
+}
 
-  // v2
-  // const escapedPhrase = phrase.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
-  // const regex = new RegExp(`((?:\\w+\\W+){0,2}\\w*)?\\b(${escapedPhrase})\\b(\\w*(?:\\W+\\w+){0,2})?`, "gi");
+function countWords(text) {
+  const words = text.match(/[A-Za-z0-9À-ÖØ-öø-ÿ]+(?:['’\-][A-Za-z0-9À-ÖØ-öø-ÿ]+)*/g);
+  return words ? words.length : 0;
+}
 
-  const escapedPhrase = phrase.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
-  const regex = new RegExp(`\\b${escapedPhrase}\\w*`, "gi");
+function directChildHead(workElement) {
+  if (!workElement) return null;
+  return Array.from(workElement.children).find((child) => child.tagName.toLowerCase() === "head") || null;
+}
 
-  // // v4
-  // const escapedPhrase = phrase.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
-  // console.log(escapedPhrase);
-  // const regex = new RegExp(`((?:^|\\w+\\W+){0,3})?(${escapedPhrase})((?:\\W+\\w+){0,3})?`, "gi");
+function cleanGroupTitle(text, fallback) {
+  const cleaned = (text || "").replace(/\s+/g, " ").trim();
+  return cleaned || fallback;
+}
 
-  // Search only rendered text. Searching innerHTML also matches XML element names,
-  // so a query such as "Epilogue" incorrectly finds the <epilogue> tag.
+function collectSearchableTextNodes(displayArea) {
+  const entries = [];
   const walker = document.createTreeWalker(displayArea, NodeFilter.SHOW_TEXT);
-  const textNodes = [];
-  while (walker.nextNode()) textNodes.push(walker.currentNode);
+  let currentNonfictionTitle = "";
+  let currentNonfictionKey = "";
+  let nonfictionIndex = -1;
 
-  textNodes.forEach((textNode) => {
+  while (walker.nextNode()) {
+    const node = walker.currentNode;
+    if (!node.nodeValue || node.nodeValue.trim() === "") continue;
+
+    let groupKey = "single";
+    let groupTitle = selected_current || "Selected text";
+    let groupElement = displayArea;
+
+    if (selected_current === "All Fiction") {
+      const work = node.parentElement ? node.parentElement.closest('div[type="work"]') : null;
+      if (!work) continue; // corpus results should be grouped only by actual works
+      const head = directChildHead(work);
+      groupTitle = cleanGroupTitle(
+        work.dataset.searchTitle || (head ? head.textContent : ""),
+        "Untitled work",
+      );
+      groupKey = work.dataset.searchGroupKey || "fiction-unknown";
+      groupElement = work;
+    } else if (selected_current === "All Nonfiction") {
+      const subtitle = node.parentElement ? node.parentElement.closest("teisubtitle") : null;
+      if (subtitle && subtitle.dataset.searchGroupKey !== currentNonfictionKey) {
+        nonfictionIndex += 1;
+        currentNonfictionTitle = cleanGroupTitle(
+          subtitle.dataset.searchTitle || subtitle.textContent,
+          `Untitled work ${nonfictionIndex + 1}`,
+        );
+        currentNonfictionKey = subtitle.dataset.searchGroupKey || `nonfiction-${nonfictionIndex}`;
+      }
+      // Ignore corpus front matter before the first <teiSubTitle>.
+      if (!currentNonfictionKey) continue;
+      groupKey = currentNonfictionKey;
+      groupTitle = currentNonfictionTitle;
+      groupElement = subtitle || groupElement;
+    }
+
+    entries.push({ node, groupKey, groupTitle, groupElement, wordCount: countWords(node.nodeValue) });
+  }
+
+  return entries;
+}
+
+function buildGroupStats(entries) {
+  const groups = new Map();
+  entries.forEach((entry) => {
+    if (!groups.has(entry.groupKey)) {
+      groups.set(entry.groupKey, {
+        key: entry.groupKey,
+        title: entry.groupTitle,
+        wordCount: 0,
+        matches: [],
+        runningWords: 0,
+      });
+    }
+    groups.get(entry.groupKey).wordCount += entry.wordCount;
+  });
+  return groups;
+}
+
+function highlightMatches(entries, groupStats, regex) {
+  const matches = [];
+  let counter = 0;
+
+  entries.forEach((entry) => {
+    const group = groupStats.get(entry.groupKey);
+    const textNode = entry.node;
     const text = textNode.nodeValue;
-    const matches = Array.from(text.matchAll(regex));
-    if (matches.length === 0) return;
+    const found = Array.from(text.matchAll(regex));
+
+    if (found.length === 0) {
+      group.runningWords += entry.wordCount;
+      return;
+    }
 
     const fragment = document.createDocumentFragment();
     let lastIndex = 0;
 
-    matches.forEach((match) => {
+    found.forEach((match) => {
       const matchIndex = match.index;
       const matchedText = match[0];
       const id = `match-${counter}`;
-      const id_pop = `pop-${counter}`;
+      const popId = `pop-${counter}`;
       counter += 1;
 
       fragment.appendChild(document.createTextNode(text.slice(lastIndex, matchIndex)));
@@ -254,140 +417,513 @@ function searchAndHighlight(phrase) {
       highlight.textContent = matchedText;
       fragment.appendChild(highlight);
 
-      const before = text.slice(0, matchIndex).match(/(?:\S+\s+){0,3}$/)?.[0] || "";
-      const after = text.slice(matchIndex + matchedText.length).match(/^(?:\s+\S+){0,3}/)?.[0] || "";
-      const resultItem = document.createElement("div");
-      resultItem.className = "search-result";
-      const resultText = document.createElement("span");
-      resultText.id = id_pop;
-      resultText.appendChild(document.createTextNode(before));
-      const strong = document.createElement("strong");
-      strong.textContent = matchedText;
-      resultText.appendChild(strong);
-      resultText.appendChild(document.createTextNode(after));
-      resultItem.appendChild(resultText);
-      resultItem.addEventListener("click", () => {
-        let target = document.getElementById(id);
+      const before = text.slice(0, matchIndex).match(/(?:\S+\s+){0,5}$/)?.[0] || "";
+      const after = text.slice(matchIndex + matchedText.length).match(/^(?:\s+\S+){0,5}/)?.[0] || "";
+      const wordsBefore = countWords(text.slice(0, matchIndex));
+      const absoluteWordPosition = group.runningWords + wordsBefore;
+      const relativePosition = group.wordCount > 0 ? absoluteWordPosition / group.wordCount : 0;
 
-        // Table-of-contents entries link to semantic sections such as
-        // <epilogue> or <div xml:id="finale">. Jump to that section instead
-        // of stopping at the entry in the contents.
-        const reference = target.closest("ref[target]");
-        if (reference) {
-          const referenceTarget = reference.getAttribute("target");
-          if (referenceTarget && referenceTarget.startsWith("#")) {
-            const targetName = referenceTarget.slice(1);
-            const xmlIdTarget = Array.from(displayArea.querySelectorAll("[xml\\:id]")).find(
-              (element) => element.getAttribute("xml:id") === targetName,
-            );
-            const tagTarget = displayArea.getElementsByTagName(targetName)[0];
-            target = xmlIdTarget || tagTarget || target;
-          }
-        }
-
-        if (!target.id) target.id = `jump-${id}`;
-        const targetId = target.id;
-        const targetPosition = target.getBoundingClientRect().top;
-        const offset = window.pageYOffset + targetPosition - window.innerHeight / 2;
-        minimize_pop();
-        window.scrollTo(0, offset);
-
-        // highlight the target when scroll to it
-        const target_pop_row = document.getElementById(id_pop_row);
-        if (target_pop_row) target_pop_row.classList.remove("text-primary");
-        const target_pop = document.getElementById(id_pop);
-        target_pop.classList.add("text-primary");
-        id_pop_row = id_pop;
-
-        // displayArea.scrollTop = targetPosition;
-
-        // highlight the target when scroll to it
-        if (search_toggle !== targetId) {
-          if (search_toggle !== "") {
-            const old_target = document.getElementById(search_toggle);
-            if (old_target) old_target.classList.remove("jump-to");
-          }
-          search_toggle = targetId;
-          target.classList.add("jump-to");
-        }
-        // search_results.classList.add("minimized");
-      });
-      searchResults.appendChild(resultItem);
+      const record = {
+        id,
+        popId,
+        matchedText,
+        before,
+        after,
+        groupKey: entry.groupKey,
+        groupTitle: entry.groupTitle,
+        relativePosition: Math.max(0, Math.min(1, relativePosition)),
+      };
+      matches.push(record);
+      group.matches.push(record);
       lastIndex = matchIndex + matchedText.length;
     });
 
     fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
     textNode.parentNode.replaceChild(fragment, textNode);
+    group.runningWords += entry.wordCount;
   });
 
-  searchContainer.appendChild(searchResults);
-  if (searchResults.children.length === 0) {
-    search_minimized = true;
-  }
-  searchContainer.style.display = "block";
-  pop_up_interactive(searchContainer, searchResults, searchInput);
+  groupStats.forEach((group) => {
+    group.relativeFrequency = group.wordCount > 0 ? (group.matches.length / group.wordCount) * 10000 : 0;
+  });
 
-  draggable_div(searchContainer);
+  return matches;
 }
 
-function pop_up_interactive(doc_container, displayed_results, doc_scroll_top) {
-  // Create a container div for text and button
-  const container = document.createElement("div");
-  container.style.display = "flex";
-  // container.style.alignItems = "center";
-  container.style.justifyContent = "space-between";
-  container.className = "position-sticky mt-1 top-0";
-  container.style.width = "100%";
+function buildSearchAnalytics(matches, groupStats, phrase) {
+  if (matches.length === 0) return null;
 
-  // Create a text span or div
-  let textDisplay = document.createElement("span");
-  textDisplay.className = "start-0 text-primary fs-6";
-  textDisplay.textContent = displayed_results.children.length + " results";
-  container.appendChild(textDisplay); // Append text to the container
+  const wrapper = document.createElement("div");
+  wrapper.className = "search-analytics";
+
+  if (isCorpusSelection()) {
+    const frequencyDetails = document.createElement("details");
+    frequencyDetails.className = "analytics-section";
+    frequencyDetails.open = true;
+    const summary = document.createElement("summary");
+    summary.textContent = selected_current === "All Fiction" ? "Frequency across books" : "Frequency across works";
+    frequencyDetails.appendChild(summary);
+    frequencyDetails.appendChild(buildCorpusFrequencyBars(groupStats));
+    wrapper.appendChild(frequencyDetails);
+  } else {
+    const trendDetails = document.createElement("details");
+    trendDetails.className = "analytics-section";
+    trendDetails.open = true;
+    const summary = document.createElement("summary");
+    summary.textContent = "Frequency across this work";
+    trendDetails.appendChild(summary);
+    const onlyGroup = Array.from(groupStats.values())[0];
+    if (onlyGroup) trendDetails.appendChild(buildTrendChart(onlyGroup.matches, `Distribution of “${phrase}”`));
+    wrapper.appendChild(trendDetails);
+  }
+
+  return wrapper;
+}
+
+function buildCorpusFrequencyBars(groupStats) {
+  const container = document.createElement("div");
+  container.className = "frequency-bars";
+
+  const groups = Array.from(groupStats.values()).filter((group) => group.matches.length > 0);
+  const maxFrequency = Math.max(...groups.map((group) => group.relativeFrequency), 0.0001);
+
+  const note = document.createElement("div");
+  note.className = "analytics-note";
+  note.textContent = "Relative frequency: occurrences per 10,000 words. Select a work to open its results.";
+  container.appendChild(note);
+
+  groups.forEach((group) => {
+    const row = document.createElement("button");
+    row.type = "button";
+    row.className = "frequency-row";
+    row.dataset.groupKey = group.key;
+
+    const label = document.createElement("span");
+    label.className = "frequency-label";
+    label.textContent = group.title;
+
+    const track = document.createElement("span");
+    track.className = "frequency-track";
+    const fill = document.createElement("span");
+    fill.className = "frequency-fill";
+    fill.style.width = `${Math.max(2, (group.relativeFrequency / maxFrequency) * 100)}%`;
+    track.appendChild(fill);
+
+    const value = document.createElement("span");
+    value.className = "frequency-value";
+    value.textContent = `${group.relativeFrequency.toFixed(2)} (${group.matches.length})`;
+    value.title = `${group.matches.length} occurrences`;
+
+    row.append(label, track, value);
+    row.addEventListener("click", () => openAndScrollToGroup(group.key));
+    container.appendChild(row);
+  });
+
+  return container;
+}
+
+function buildTrendChart(matches, labelText) {
+  const chartWrap = document.createElement("div");
+  chartWrap.className = "trend-chart-wrap";
+
+  const note = document.createElement("div");
+  note.className = "analytics-note";
+  note.textContent = "20 equal word segments. Select the trend to jump to the nearest occurrence.";
+  chartWrap.appendChild(note);
+
+  if (!matches || matches.length === 0) {
+    const empty = document.createElement("div");
+    empty.className = "trend-empty";
+    empty.textContent = "No occurrences in this work.";
+    chartWrap.appendChild(empty);
+    return chartWrap;
+  }
+
+  const bins = 20;
+  const counts = Array(bins).fill(0);
+  matches.forEach((match) => {
+    const index = Math.min(bins - 1, Math.floor(match.relativePosition * bins));
+    counts[index] += 1;
+  });
+  const max = Math.max(...counts, 1);
+
+  const width = 520;
+  const height = 112;
+  const top = 10;
+  const bottom = 22;
+  const plotHeight = height - top - bottom;
+  const step = width / (bins - 1);
+  const points = counts.map((count, i) => {
+    const x = i * step;
+    const y = top + plotHeight - (count / max) * plotHeight;
+    return `${x},${y}`;
+  }).join(" ");
+
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  svg.setAttribute("role", "img");
+  svg.setAttribute("aria-label", labelText);
+  svg.classList.add("trend-chart");
+
+  const baseline = document.createElementNS("http://www.w3.org/2000/svg", "line");
+  baseline.setAttribute("x1", "0");
+  baseline.setAttribute("x2", String(width));
+  baseline.setAttribute("y1", String(height - bottom));
+  baseline.setAttribute("y2", String(height - bottom));
+  baseline.setAttribute("class", "trend-axis");
+  svg.appendChild(baseline);
+
+  const polyline = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+  polyline.setAttribute("points", points);
+  polyline.setAttribute("class", "trend-line");
+  svg.appendChild(polyline);
+
+  counts.forEach((count, i) => {
+    const x = i * step;
+    const y = top + plotHeight - (count / max) * plotHeight;
+    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    circle.setAttribute("cx", String(x));
+    circle.setAttribute("cy", String(y));
+    circle.setAttribute("r", count > 0 ? "3" : "1.5");
+    circle.setAttribute("class", count > 0 ? "trend-point" : "trend-point trend-point-empty");
+    svg.appendChild(circle);
+  });
+
+  for (let i = 0; i < bins; i += 1) {
+    const hit = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    const x = (i / bins) * width;
+    hit.setAttribute("x", String(x));
+    hit.setAttribute("y", "0");
+    hit.setAttribute("width", String(width / bins));
+    hit.setAttribute("height", String(height - bottom));
+    hit.setAttribute("class", "trend-hit-area");
+    hit.setAttribute("tabindex", "0");
+    hit.setAttribute("aria-label", `Position ${Math.round(((i + 0.5) / bins) * 100)} percent`);
+    const jump = () => jumpToNearestMatch(matches, (i + 0.5) / bins);
+    hit.addEventListener("click", jump);
+    hit.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") jump();
+    });
+    svg.appendChild(hit);
+  }
+
+  const labels = document.createElement("div");
+  labels.className = "trend-labels";
+  labels.innerHTML = "<span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>";
+
+  chartWrap.append(svg, labels);
+  return chartWrap;
+}
+
+function buildSearchResults(matches, groupStats) {
+  const searchResults = document.createElement("div");
+  searchResults.id = "search_results";
+  searchResults.className = "container search-results-list";
+
+  if (matches.length === 0) {
+    const empty = document.createElement("div");
+    empty.className = "no-search-results";
+    empty.textContent = "No results found.";
+    searchResults.appendChild(empty);
+    return searchResults;
+  }
+
+  if (isCorpusSelection()) {
+    let openedFirst = false;
+    groupStats.forEach((group) => {
+      if (group.matches.length === 0) return;
+      const details = document.createElement("details");
+      details.className = "work-result-group";
+      details.dataset.groupKey = group.key;
+      if (!openedFirst) {
+        details.open = true;
+        openedFirst = true;
+      }
+
+      const summary = document.createElement("summary");
+      summary.className = "work-result-summary";
+      summary.textContent = `${group.title} (${group.matches.length})`;
+      details.appendChild(summary);
+
+      const trendSection = document.createElement("div");
+      trendSection.className = "group-trend-section";
+      const trendLabel = document.createElement("div");
+      trendLabel.className = "group-trend-label";
+      trendLabel.textContent = "Frequency across this work";
+      trendSection.appendChild(trendLabel);
+      trendSection.appendChild(buildTrendChart(group.matches, `Distribution in ${group.title}`));
+      details.appendChild(trendSection);
+
+      // Do not construct hundreds of result rows for every book up front.
+      // They are rendered in small batches only when a book is opened.
+      const resultList = document.createElement("div");
+      resultList.className = "group-result-list";
+      resultList.dataset.rendered = "false";
+      resultList.dataset.rendering = "false";
+      details.appendChild(resultList);
+
+      details.addEventListener("toggle", () => {
+        if (details.open) ensureGroupResultsRendered(details, false);
+      });
+
+      searchResults.appendChild(details);
+    });
+  } else {
+    // Individual works are smaller; build them in one fragment to minimize
+    // layout/reflow work.
+    const fragment = document.createDocumentFragment();
+    matches.forEach((match) => fragment.appendChild(createSearchResultItem(match)));
+    searchResults.appendChild(fragment);
+  }
+
+  return searchResults;
+}
+
+function ensureGroupResultsRendered(details, immediate = false) {
+  if (!details) return;
+  const resultList = details.querySelector(".group-result-list");
+  if (!resultList || resultList.dataset.rendered === "true") return;
+
+  const group = activeGroupStats.get(details.dataset.groupKey);
+  if (!group) return;
+
+  if (immediate) {
+    // Cancel any scheduled batch by changing the generation marker.
+    const generation = String((Number(resultList.dataset.generation || 0) + 1));
+    resultList.dataset.generation = generation;
+    const fragment = document.createDocumentFragment();
+    group.matches.forEach((match) => fragment.appendChild(createSearchResultItem(match)));
+    resultList.replaceChildren(fragment);
+    resultList.dataset.rendered = "true";
+    resultList.dataset.rendering = "false";
+    return;
+  }
+
+  if (resultList.dataset.rendering === "true") return;
+  resultList.dataset.rendering = "true";
+  const generation = String((Number(resultList.dataset.generation || 0) + 1));
+  resultList.dataset.generation = generation;
+
+  const status = document.createElement("div");
+  status.className = "group-results-loading";
+  status.textContent = "Loading results…";
+  resultList.replaceChildren(status);
+
+  let index = 0;
+  const chunkSize = window.matchMedia("(max-width: 700px)").matches ? 30 : 70;
+
+  function appendChunk() {
+    if (resultList.dataset.generation !== generation) return;
+    if (index === 0) resultList.replaceChildren();
+
+    const fragment = document.createDocumentFragment();
+    const end = Math.min(group.matches.length, index + chunkSize);
+    for (; index < end; index += 1) {
+      fragment.appendChild(createSearchResultItem(group.matches[index]));
+    }
+    resultList.appendChild(fragment);
+
+    if (index < group.matches.length) {
+      requestAnimationFrame(appendChunk);
+    } else {
+      resultList.dataset.rendered = "true";
+      resultList.dataset.rendering = "false";
+    }
+  }
+
+  requestAnimationFrame(appendChunk);
+}
+
+function createSearchResultItem(match) {
+  const resultItem = document.createElement("div");
+  resultItem.className = "search-result";
+  resultItem.dataset.matchId = match.id;
+
+  const resultText = document.createElement("span");
+  resultText.id = match.popId;
+  resultText.appendChild(document.createTextNode(match.before));
+  const strong = document.createElement("strong");
+  strong.textContent = match.matchedText;
+  resultText.appendChild(strong);
+  resultText.appendChild(document.createTextNode(match.after));
+  resultItem.appendChild(resultText);
+
+  resultItem.addEventListener("click", () => jumpToMatch(match));
+  return resultItem;
+}
+
+function openAndScrollToGroup(groupKey) {
+  const details = Array.from(document.querySelectorAll(".work-result-group")).find(
+    (item) => item.dataset.groupKey === groupKey,
+  );
+  if (!details) return;
+  details.open = true;
+  ensureGroupResultsRendered(details, false);
+  const panelBody = details.closest(".search-panel-body");
+  if (panelBody) {
+    requestAnimationFrame(() => {
+      panelBody.scrollTo({ top: Math.max(0, details.offsetTop - 6), behavior: "smooth" });
+    });
+  }
+}
+
+function jumpToNearestMatch(matches, targetPosition) {
+  if (!matches || matches.length === 0) return;
+  let nearest = matches[0];
+  let nearestDistance = Math.abs(nearest.relativePosition - targetPosition);
+  matches.forEach((match) => {
+    const distance = Math.abs(match.relativePosition - targetPosition);
+    if (distance < nearestDistance) {
+      nearest = match;
+      nearestDistance = distance;
+    }
+  });
+
+  jumpToMatch(nearest);
+}
+
+function focusSearchResult(match) {
+  if (!match) return;
+
+  let details = null;
+  if (isCorpusSelection()) {
+    details = Array.from(document.querySelectorAll(".work-result-group")).find(
+      (item) => item.dataset.groupKey === match.groupKey,
+    );
+    if (details) {
+      details.open = true;
+      // A graph click may target a row that has not been lazily created yet.
+      // Render this one group immediately so navigation never silently fails.
+      ensureGroupResultsRendered(details, true);
+    }
+  }
+
+  document.querySelectorAll(".search-result.is-active-result").forEach((item) => {
+    item.classList.remove("is-active-result");
+  });
+
+  const resultItem = document.querySelector(`.search-result[data-match-id="${CSS.escape(match.id)}"]`);
+  if (!resultItem) return;
+  resultItem.classList.add("is-active-result");
+
+  const panelBody = resultItem.closest(".search-panel-body");
+  if (panelBody) {
+    requestAnimationFrame(() => {
+      const itemRect = resultItem.getBoundingClientRect();
+      const panelRect = panelBody.getBoundingClientRect();
+      const desiredTop =
+        panelBody.scrollTop +
+        (itemRect.top - panelRect.top) -
+        panelRect.height / 2 +
+        itemRect.height / 2;
+      panelBody.scrollTo({
+        top: Math.max(0, desiredTop),
+        behavior: prefersReducedMotion() ? "auto" : "smooth",
+      });
+    });
+  }
+}
+
+function prefersReducedMotion() {
+  return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function jumpToMatch(match) {
+  const displayArea = document.getElementsByTagName("text")[0];
+  let target = document.getElementById(match.id);
+  if (!target || !displayArea) return;
+
+  // Preserve the existing table-of-contents behavior: when a highlighted
+  // match is inside <ref target="#...">, jump to the referenced section.
+  const reference = target.closest("ref[target]");
+  if (reference) {
+    const referenceTarget = reference.getAttribute("target");
+    if (referenceTarget && referenceTarget.startsWith("#")) {
+      const targetName = referenceTarget.slice(1);
+      const xmlIdTarget = Array.from(displayArea.querySelectorAll("[xml\\:id]")).find(
+        (element) => element.getAttribute("xml:id") === targetName,
+      );
+      const tagTarget = displayArea.getElementsByTagName(targetName)[0];
+      target = xmlIdTarget || tagTarget || target;
+    }
+  }
+
+  if (!target.id) target.id = `jump-${match.id}`;
+  const targetId = target.id;
+  const targetPosition = target.getBoundingClientRect().top;
+  const offsetPosition = window.pageYOffset + targetPosition - window.innerHeight / 2;
+  window.scrollTo({
+    top: offsetPosition,
+    behavior: window.matchMedia("(max-width: 700px)").matches || prefersReducedMotion() ? "auto" : "smooth",
+  });
+
+  const oldResult = document.getElementById(id_pop_row);
+  if (oldResult) oldResult.classList.remove("text-primary");
+  const currentResult = document.getElementById(match.popId);
+  if (currentResult) currentResult.classList.add("text-primary");
+  id_pop_row = match.popId;
+
+  // Keep the floating result list synchronized with jumps from both the
+  // result list and the frequency trend chart.
+  focusSearchResult(match);
+
+  if (search_toggle !== targetId) {
+    if (search_toggle !== "") {
+      const oldTarget = document.getElementById(search_toggle);
+      if (oldTarget) oldTarget.classList.remove("jump-to");
+    }
+    search_toggle = targetId;
+    target.classList.add("jump-to");
+  }
+}
+
+function addSearchPanelHeader(docContainer, panelBody, resultCount, docScrollTop) {
+  const header = document.createElement("div");
+  header.className = "search-panel-header position-sticky top-0";
+
+  const textDisplay = document.createElement("span");
+  textDisplay.className = "text-primary fs-6 search-result-count";
+  textDisplay.textContent = typeof resultCount === "number" ? `${resultCount} results` : String(resultCount);
+  header.appendChild(textDisplay);
 
   const divButtons = document.createElement("div");
   divButtons.id = "sr_div_buttons";
-  divButtons.className = "btn-group mb-1 ";
+  divButtons.className = "btn-group";
   divButtons.setAttribute("role", "group");
 
   const buttonItem = document.createElement("button");
-  buttonItem.className = "btn btn-outline-primary btn-sm top-0";
-  buttonItem.setAttribute("type", "button");
-
+  buttonItem.className = "btn btn-outline-primary btn-sm";
+  buttonItem.type = "button";
   buttonItem.textContent = "Min";
   buttonItem.id = "sr_minimize_button";
-  buttonItem.addEventListener("click", () => {
-    if (search_minimized === false) {
-      doc_container.classList.add("minimized");
-      displayed_results.classList.add("minimized");
+  buttonItem.addEventListener("click", (event) => {
+    event.stopPropagation();
+    if (!search_minimized) {
+      docContainer.classList.add("minimized");
+      panelBody.classList.add("minimized");
       buttonItem.textContent = "Max";
       search_minimized = true;
     } else {
-      doc_container.classList.remove("minimized");
-      displayed_results.classList.remove("minimized");
+      docContainer.classList.remove("minimized");
+      panelBody.classList.remove("minimized");
       buttonItem.textContent = "Min";
       search_minimized = false;
     }
   });
 
-  // Append the container to the target div
-  divButtons.appendChild(buttonItem); // Append button to the container
-
-  // add scroll top button
   const buttonScrollTop = document.createElement("button");
-  buttonScrollTop.className = "btn btn-outline-success btn-sm top-0";
-  buttonScrollTop.setAttribute("type", "button");
-
+  buttonScrollTop.className = "btn btn-outline-success btn-sm";
+  buttonScrollTop.type = "button";
   buttonScrollTop.textContent = "Top";
   buttonScrollTop.id = "sr_scroll_top_button";
-  buttonScrollTop.addEventListener("click", () => {
-    doc_scroll_top.scrollIntoView();
+  buttonScrollTop.addEventListener("click", (event) => {
+    event.stopPropagation();
+    docScrollTop.scrollIntoView({ behavior: "smooth", block: "center" });
   });
 
-  divButtons.appendChild(buttonScrollTop);
-
-  container.appendChild(divButtons);
-  doc_container.insertBefore(container, doc_container.firstChild);
+  divButtons.append(buttonItem, buttonScrollTop);
+  header.appendChild(divButtons);
+  docContainer.insertBefore(header, docContainer.firstChild);
 }
 
 function offset(el) {
@@ -399,6 +935,29 @@ function offset(el) {
     top: rect.top + scrollTop,
     left: rect.left + scrollLeft,
   };
+}
+
+function clampSearchPanelToViewport(panel) {
+  if (!panel || panel.style.display === "none") return;
+
+  // On phones, CSS owns the position. Clearing old drag coordinates avoids a
+  // desktop drag position leaving the panel partly off-screen after rotation.
+  if (window.matchMedia("(max-width: 700px)").matches) {
+    panel.style.left = "";
+    panel.style.top = "";
+    return;
+  }
+
+  const rect = panel.getBoundingClientRect();
+  const margin = 8;
+  let left = rect.left;
+  let top = rect.top;
+  if (rect.right > window.innerWidth - margin) left -= rect.right - (window.innerWidth - margin);
+  if (left < margin) left = margin;
+  if (rect.bottom > window.innerHeight - margin) top -= rect.bottom - (window.innerHeight - margin);
+  if (top < margin) top = margin;
+  panel.style.left = `${left}px`;
+  panel.style.top = `${top}px`;
 }
 
 function draggable_div(doc_drag) {
@@ -422,11 +981,12 @@ function draggable_div(doc_drag) {
   }
 
   doc_drag.addEventListener("mousedown", function (e) {
-    // When the mouse button is pressed down, update the initial position
+    // Drag only from the panel header so charts, results, and scrollbars remain interactive.
+    if (!e.target.closest(".search-panel-header") || e.target.closest("button")) return;
+
     elementX = doc_drag.offsetLeft - e.clientX;
     elementY = doc_drag.offsetTop - e.clientY;
 
-    // Attach the listeners to `document`
     document.addEventListener("mousemove", onMouseMove);
     document.addEventListener("mouseup", onMouseUp);
   });
@@ -437,46 +997,19 @@ function draggable_div(doc_drag) {
     document.removeEventListener("mouseup", onMouseUp);
   }
 
-  //mobile device suport
-  doc_drag.addEventListener("touchstart", function (e) {
-    // when using finger on mobile devices
-    if (
-      e.target.closest("#search_results") ||
-      e.target.closest("button") ||
-      e.target.closest("input") ||
-      e.target.closest("select")
-    ) {
-      return;
-    }
-    if(e.touches.length !== 1) {
-      return;
-    }
-    const touch = e.touches[0];
-    elementX = doc_drag.offsetLeft - touch.clientX;
-    elementY = doc_drag.offsetTop - touch.clientY;
-
-    document.addEventListener("touchmove", onTouchMove, { passive: false });
-    document.addEventListener("touchend", onTouchEnd);
-    document.addEventListener("touchcancel", onTouchEnd);
-  },
-  { passive: true }
-);
-function onTouchMove(e) {
-  if (e.touches.length !== 1) {
-    return;
-  }
-  e.preventDefault();
-  const touch = e.touches[0];
-  doc_drag.style.left = touch.clientX + elementX + "px";
-  doc_drag.style.top = touch.clientY + elementY + "px";
-}
-function onTouchEnd() {
-  document.removeEventListener("touchmove", onTouchMove);
-  document.removeEventListener("touchend", onTouchEnd);
-  document.removeEventListener("touchcancel", onTouchEnd);
+  // Deliberately do not drag the floating panel with touch. Mobile Safari
+  // otherwise has to decide whether a header gesture means drag, scroll, or tap,
+  // which can make the panel feel unreliable. Desktop mouse dragging remains.
 }
 
-}
+
+let searchPanelResizeTimer = null;
+window.addEventListener("resize", () => {
+  clearTimeout(searchPanelResizeTimer);
+  searchPanelResizeTimer = setTimeout(() => {
+    clampSearchPanelToViewport(document.getElementById("search_container"));
+  }, 100);
+});
 
 function xmlToHtml(xmlNode) {
   let html = "";

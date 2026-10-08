@@ -126,3 +126,411 @@
 #minimizeButton:hover {
   background-color: #ddd;
 }
+
+/* ---- Search analytics / grouped corpus results ---- */
+#search_container {
+  z-index: 1050;
+  padding: 0;
+  width: min(620px, calc(100vw - 6em));
+  max-width: 88vw;
+  max-height: 76vh;
+  overflow: hidden;
+  border-radius: 2px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+}
+
+#search_container.corpus-search {
+  width: min(720px, calc(100vw - 6em));
+}
+
+.search-panel-header {
+  cursor: move;
+  min-height: 42px;
+  padding: 7px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: pink;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  z-index: 3;
+}
+
+.search-result-count {
+  font-weight: 600;
+}
+
+.search-panel-body {
+  max-height: calc(76vh - 42px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: rgba(255, 192, 203, 0.96);
+}
+
+.search-panel-body.minimized,
+#search_container.minimized .search-panel-body {
+  display: none;
+}
+
+#search_container.minimized {
+  height: auto;
+  max-height: none;
+  overflow: hidden;
+}
+
+#search_results,
+.search-results-list {
+  position: static;
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  height: auto;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.24);
+  background: transparent;
+}
+
+.search-analytics {
+  background: rgba(255, 255, 255, 0.32);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.analytics-section {
+  padding: 0;
+}
+
+.analytics-section > summary,
+.work-result-summary {
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+}
+
+.analytics-section > summary {
+  padding: 9px 12px;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.analytics-note {
+  padding: 4px 10px 7px;
+  font-size: 0.78rem;
+  line-height: 1.25;
+  color: #4f4f4f;
+}
+
+.frequency-bars {
+  padding: 2px 8px 9px;
+  max-height: 245px;
+  overflow-y: auto;
+}
+
+.frequency-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(135px, 1.45fr) minmax(90px, 1fr) 92px;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 4px;
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  background: transparent;
+  text-align: left;
+  color: inherit;
+}
+
+.frequency-row:hover,
+.frequency-row:focus-visible {
+  background: rgba(255, 255, 255, 0.42);
+  outline: none;
+}
+
+.frequency-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.frequency-track {
+  height: 10px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+}
+
+.frequency-fill {
+  display: block;
+  height: 100%;
+  background: rgba(0, 123, 255, 0.65);
+}
+
+.frequency-value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.82rem;
+}
+
+.work-result-group {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  scroll-margin-top: 46px;
+}
+
+.work-result-summary {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 9px 12px;
+}
+
+/* Alternate book/work header colors so adjacent groups are easy to distinguish. */
+.work-result-group:nth-of-type(odd) > .work-result-summary {
+  background: #e7f1fb;
+  color: #1f4f78;
+  border-left: 4px solid #2b83c6;
+}
+
+.work-result-group:nth-of-type(even) > .work-result-summary {
+  background: #e9f4e8;
+  color: #315f38;
+  border-left: 4px solid #5b9b63;
+}
+
+.work-result-group:nth-of-type(odd)[open] > .work-result-summary {
+  background: #d8eafa;
+  border-bottom: 1px solid #9ebfda;
+}
+
+.work-result-group:nth-of-type(even)[open] > .work-result-summary {
+  background: #dcebd9;
+  border-bottom: 1px solid #a9c9a8;
+}
+
+.group-trend-section {
+  padding: 7px 10px 3px;
+  background: rgba(255, 255, 255, 0.25);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.group-trend-label {
+  font-size: 0.86rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.trend-chart-wrap {
+  padding: 2px 10px 7px;
+}
+
+.trend-chart {
+  display: block;
+  width: 100%;
+  height: 112px;
+  overflow: visible;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.14);
+}
+
+.trend-axis {
+  stroke: #777;
+  stroke-width: 1;
+}
+
+.trend-line {
+  fill: none;
+  stroke: #df596c;
+  stroke-width: 2.2;
+  vector-effect: non-scaling-stroke;
+}
+
+.trend-point {
+  fill: #df596c;
+}
+
+.trend-point-empty {
+  opacity: 0.35;
+}
+
+.trend-hit-area {
+  fill: transparent;
+  cursor: pointer;
+}
+
+.trend-hit-area:hover,
+.trend-hit-area:focus {
+  fill: rgba(0, 123, 255, 0.08);
+  outline: none;
+}
+
+.trend-labels {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 2px;
+  font-size: 0.72rem;
+  color: #555;
+}
+
+.group-result-list {
+  background: #fff8fa;
+}
+
+.group-result-list .search-result,
+.search-results-list > .search-result {
+  padding: 7px 8px;
+  margin: 0 10px;
+  background: #fffdfd;
+  border-bottom-color: #d8c8cd;
+}
+
+.search-result:hover {
+  background: #f7e9ed;
+}
+
+.no-search-results,
+.trend-empty {
+  padding: 12px;
+  color: #555;
+}
+
+@media (max-width: 700px) {
+  #search_container,
+  #search_container.corpus-search {
+    left: 0.75rem !important;
+    width: calc(100vw - 1.5rem);
+    max-width: none;
+  }
+
+  .frequency-row {
+    grid-template-columns: minmax(105px, 1.25fr) minmax(70px, 1fr) 78px;
+    gap: 5px;
+  }
+
+  .frequency-value {
+    font-size: 0.74rem;
+  }
+}
+
+/* Active search-result row: used when a result or trend position is selected. */
+.search-result.is-active-result,
+.group-result-list .search-result.is-active-result,
+.search-results-list > .search-result.is-active-result {
+  background: #fff2a8;
+  border-left: 4px solid #d39e00;
+  padding-left: 8px;
+  box-shadow: inset 0 0 0 1px rgba(211, 158, 0, 0.18);
+}
+
+@media (max-width: 700px) {
+  /* Keep the search controls aligned on small screens and reduce the
+     oversized native select text. */
+  .input-group.mt-2.pt-2.px-5 {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  #fiction_list {
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+    min-height: 38px;
+    height: 38px;
+    margin: 0;
+    padding: 0.25rem 0.5rem;
+    font-size: 1rem;
+    line-height: 1.2;
+    box-sizing: border-box;
+  }
+
+  #search_input {
+    min-width: 0;
+    font-size: 1rem;
+  }
+}
+
+/* ---- Mobile/performance robustness ---- */
+.search-loading,
+.group-results-loading {
+  padding: 14px 12px;
+  font-size: 0.9rem;
+  color: #555;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+/* Reduce expensive paint work while a very large grouped result set is open. */
+.group-result-list {
+  contain: content;
+}
+
+@media (max-width: 700px) {
+  .input-group.mt-2.pt-2.px-5 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 0;
+    padding-left: 0.6rem !important;
+    padding-right: 0.6rem !important;
+  }
+
+  #fiction_list {
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+    height: 34px;
+    min-height: 34px;
+    padding: 0.15rem 1.9rem 0.15rem 0.45rem;
+    margin: 0 0 0.2rem 0;
+    font-size: 0.9rem;
+    line-height: 1.1;
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+  }
+
+  #search_input {
+    flex: 1 1 45%;
+    width: 1%;
+    min-width: 0;
+    height: 38px;
+    padding: 0.3rem 0.45rem;
+    font-size: 0.92rem;
+  }
+
+  #button-addon2,
+  #button-voyant {
+    flex: 0 0 auto;
+    height: 38px;
+    padding: 0.3rem 0.55rem;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  #search_container,
+  #search_container.corpus-search {
+    left: 0.6rem !important;
+    right: 0.6rem;
+    top: max(0.6rem, env(safe-area-inset-top));
+    margin-top: 0;
+    width: auto;
+    max-width: none;
+    max-height: calc(100dvh - max(1.2rem, env(safe-area-inset-top)));
+    overscroll-behavior: contain;
+  }
+
+  .search-panel-body {
+    max-height: calc(100dvh - 58px - max(1.2rem, env(safe-area-inset-top)));
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  .search-panel-header {
+    cursor: default;
+    touch-action: manipulation;
+  }
+
+  .trend-hit-area {
+    touch-action: manipulation;
+  }
+
+  .search-result {
+    touch-action: manipulation;
+  }
+}

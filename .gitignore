@@ -1,0 +1,39 @@
+# macOS and archive metadata
+.DS_Store
+**/.DS_Store
+._*
+__MACOSX/
+
+# Editor and IDE local settings
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Local environment settings and secrets
+.env
+.env.*
+!.env.example
+*.local
+
+# Logs, caches, and temporary files
+*.log
+*.tmp
+*.temp
+.cache/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Dependency and generated build directories
+node_modules/
+dist/
+build/
+coverage/
+
+# Local self-hosted Voyant deployment (official Voyant is used)
+/voyant_server/
+
+# Keep production assets and corpora tracked:
+# /pureText/, /teiEncode/, /voyant_tools/, /pages/
