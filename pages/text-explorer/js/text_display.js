@@ -38,43 +38,44 @@ const OptionToFilename = {
   "All Poetry Except The Spanish Gypsy": "poetry_allinone",
 };
 
-const VOYANT_BASE = "https://voyant.fishee.org";
 const OptionToVoyant = {
   "Search a text to explore": "",
   "Mr. Gilfil's Love Story (1857)":
-    VOYANT_BASE + "/tool/Cirrus/?corpus=8ac0432296676f93e04e27fa311572d6&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+    "https://voyant-tools.org/tool/Cirrus/?corpus=a32279787de8e93603097cc4e26271f6&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "Janet's Repentance (1857)":
-    VOYANT_BASE + "/tool/Cirrus/?corpus=0575656ba58f8fd6b94ccd50304d78a4&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+    "https://voyant-tools.org/tool/Cirrus/?corpus=477db75674e3ee663b6cea67dc5c5968&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "The Sad Fortunes of the Rev. Amos Barton (1857)":
-    VOYANT_BASE + "/tool/Cirrus/?corpus=6bbe068d2ed887ac563ae9f9ce59e1e4&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+    "https://voyant-tools.org/tool/Cirrus/?corpus=8118b293dc884803731f96c4666e7bdb&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "Adam Bede (1859)":
-    VOYANT_BASE + "/tool/Cirrus/?corpus=5d06f504b20a8eef95d5c7666fcefa53&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+    "https://voyant-tools.org/tool/Cirrus/?corpus=3cc2427efa1f1eb749aa55b5cfd099d2&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "The Lifted Veil (1859)":
-    VOYANT_BASE + "/tool/Cirrus/?corpus=492ae05a96f04b0e07b89140ec73678b&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+    "https://voyant-tools.org/tool/Cirrus/?corpus=5118a197e536559b5477e131cd47cfbd&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "The Mill on the Floss (1860)":
-    VOYANT_BASE + "/tool/Cirrus/?corpus=41371bc0e28d8cf1f675f47e9a5c6a0f&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+    "https://voyant-tools.org/tool/Cirrus/?corpus=de768516be0c442993cf4dc528d7a517&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "Silas Marner (1861)":
-    VOYANT_BASE + "/tool/Cirrus/?corpus=abed769f964856ae953d168bdc594d58&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+    "https://voyant-tools.org/tool/Cirrus/?corpus=75848b3395097670c38c731ce60791f6&stopList=keywords-1b19a870ee41122f9003df11a038375d&whiteList=",
   "Romola (1863)":
-    VOYANT_BASE + "/tool/Cirrus/?corpus=d393dc2327f985bdc75ebe948b3809e8&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+    "https://voyant-tools.org/tool/Cirrus/?input=https://georgeeliotarchive.org/files/original/3d43f4fe740957af8f44b3cc3c546634.txt&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "Brother Jacob (1864)":
-    VOYANT_BASE + "/tool/Cirrus/?corpus=71182174980d4bea97f433e13b05bc9d&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+    "https://voyant-tools.org/tool/Cirrus/?corpus=3a4983c60fa87982a4339a385b3b47a0&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "Felix Holt, the Radical (1866)":
-    VOYANT_BASE + "/tool/Cirrus/?corpus=48a28aea0c8a3ca30612acedbea2ab4b&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+    "https://voyant-tools.org/tool/Cirrus/?corpus=3ec2ba3d2975f24a51c5c0ac563fe760&stopList=keywords-19ea191a1678afdff2e05f8877e8abb3&whiteList=",
   "Middlemarch (1871-72)":
-    VOYANT_BASE + "/tool/Cirrus/?corpus=e66ca6ddfdfb5b6bdb1247553c0b91b6&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+    "https://voyant-tools.org/tool/Cirrus/?corpus=497f9eaa114f7e284f94edc7083da136&stopList=keywords-19ea191a1678afdff2e05f8877e8abb3&whiteList=",
   "Daniel Deronda (1876)":
-    VOYANT_BASE + "/tool/Cirrus/?corpus=df845f097563eb333ace24e514a236b7&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+    "https://voyant-tools.org/tool/Cirrus/?corpus=a57da0012c1dd1033963f5732904f1f4&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "Impressions of Theophrastus Such (1879)":
-    VOYANT_BASE + "/tool/Cirrus/?corpus=3eaffbc5b9ac83885210753c563801b2&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+    "https://voyant-tools.org/tool/Cirrus/?input=https://georgeeliotarchive.org/files/original/d828ef209fb49bf45bbb2d24f58e5b74.txt&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "All Fiction":
-    VOYANT_BASE + "/tool/Cirrus/?corpus=989b84c85a4a52a0261ed896533852c0&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+    "https://voyant-tools.org/?corpus=467f53173e9b97d244b09161b0eb10b4&view=Cirrus&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+  // "All Nonfiction":
+  //   "https://voyant-tools.org/?corpus=de5b839103819a2a0bc741013bf2ea6b&view=Cirrus&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "All Nonfiction":
-    VOYANT_BASE + "/tool/Cirrus/?corpus=3f4878c8f2cfc3aa951349b2c3203818&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+    "https://voyant-tools.org/?corpus=a70fb8ab1ef7192f57c653e19e75744f&view=Cirrus&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "The Spanish Gypsy (1868)":
-    VOYANT_BASE + "/tool/Cirrus/?corpus=e559c2d715a542f35bccef547f247f80&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+    "https://voyant-tools.org/?corpus=0c45473a2790cc5bd6b28df29c43eb0e&view=Cirrus&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "All Poetry Except The Spanish Gypsy":
-    VOYANT_BASE + "/tool/Cirrus/?corpus=e0e71c4d489d423374d9779d254daa91&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+    "https://voyant-tools.org/?corpus=542722fd79c7fe6171fbf046d8baa84c&view=Cirrus&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
 };
 
 function populateDropdown() {

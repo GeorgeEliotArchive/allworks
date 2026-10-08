@@ -10,11 +10,11 @@ const OptionToVoyant = {
   "Janet's Repentance (1857)":
     "https://voyant-tools.org/tool/Cirrus/?corpus=477db75674e3ee663b6cea67dc5c5968&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "The Sad Fortunes of the Rev. Amos Barton (1857)":
-    " https://voyant-tools.org/tool/Cirrus/?corpus=8118b293dc884803731f96c4666e7bdb&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
+    "https://voyant-tools.org/tool/Cirrus/?corpus=8118b293dc884803731f96c4666e7bdb&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "Adam Bede (1859)":
     "https://voyant-tools.org/tool/Cirrus/?corpus=3cc2427efa1f1eb749aa55b5cfd099d2&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "The Lifted Veil (1859)":
-    "https://voyant-tools.org/tool/Cirrus/?corpus=5118a197e536559b5477e131cd47cfbd&stopList=keywords-2459d9912745179a64508611ee85dd7e&amp;whiteList=",
+    "https://voyant-tools.org/tool/Cirrus/?corpus=5118a197e536559b5477e131cd47cfbd&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "The Mill on the Floss (1860)":
     "https://voyant-tools.org/tool/Cirrus/?corpus=de768516be0c442993cf4dc528d7a517&stopList=keywords-2459d9912745179a64508611ee85dd7e&whiteList=",
   "Silas Marner (1861)":

@@ -1,5 +1,12 @@
 # Local Voyant Tools for the George Eliot Archive
 
+> **Status (2026-10-08):** voyant-tools.org is back online and every original corpus
+> and stoplist id resolves again, so `OptionToVoyant` in the Text Explorer points at
+> the **official** voyant-tools.org links once more (restored with
+> `python3 voyant_server/bin/apply_links.py voyant_server/legacy/OptionToVoyant.voyant-tools.org.js`).
+> The self-hosted server below is kept as a standby; switch back to it with
+> `python3 voyant_server/bin/apply_links.py` if the official site goes down again.
+
 The Text Explorer (`pages/text-explorer`) embeds a Voyant *Cirrus* word cloud in an
 iframe. Every URL in `OptionToVoyant` (`pages/text-explorer/js/text_display.js`)
 points at `https://voyant-tools.org`, which has been returning HTTP 502 for weeks.
